@@ -1,0 +1,135 @@
+2025-02-12 22:58:52,428 [INFO] Starting DB Manager tests
+2025-02-12 22:58:52,428 [DEBUG] [DB:1] Opening database connection
+2025-02-12 22:58:52,429 [DEBUG] [DB:1] SQL: 
+                CREATE TABLE IF NOT EXISTS test_table (
+                    id INTEGER PRIMARY KEY,
+                    name TEXT,
+                    value INTEGER
+                );
+2025-02-12 22:58:52,437 [DEBUG] [DB:1] SQL: 
+                CREATE TABLE IF NOT EXISTS test_foreign (
+                    id INTEGER PRIMARY KEY,
+                    test_id INTEGER,
+                    data TEXT,
+                    FOREIGN KEY (test_id) REFERENCES test_table(id)
+                );
+2025-02-12 22:58:52,445 [DEBUG] [DB:1] Transaction committed
+2025-02-12 22:58:52,445 [DEBUG] [DB:1] Connection closed
+2025-02-12 22:58:52,445 [INFO] 
+==================================================
+Starting test: test_concurrent_transactions
+==================================================
+2025-02-12 22:58:52,445 [DEBUG] [DB:2] Opening database connection
+2025-02-12 22:58:52,446 [DEBUG] [DB:2] SQL: 
+                DELETE FROM test_foreign;
+2025-02-12 22:58:52,447 [DEBUG] [DB:2] SQL: 
+                DELETE FROM test_table;
+2025-02-12 22:58:52,447 [DEBUG] [DB:2] Transaction committed
+2025-02-12 22:58:52,447 [DEBUG] [DB:2] Connection closed
+2025-02-12 22:58:52,447 [INFO] Testing concurrent transactions
+2025-02-12 22:58:52,447 [DEBUG] [DB:3] Opening database connection
+2025-02-12 22:58:52,447 [DEBUG] [DB:4] Opening database connection
+2025-02-12 22:58:52,448 [DEBUG] [DB:3] SQL: BEGIN 
+2025-02-12 22:58:52,448 [DEBUG] [DB:3] SQL: INSERT INTO test_table (name, value) VALUES ('test5', 500)
+2025-02-12 22:58:52,449 [DEBUG] [DB:4] SQL: SELECT COUNT(*) FROM test_table
+2025-02-12 22:58:52,449 [DEBUG] Concurrent transaction count: 0
+2025-02-12 22:58:52,449 [DEBUG] [DB:4] Transaction committed
+2025-02-12 22:58:52,449 [DEBUG] [DB:4] Connection closed
+2025-02-12 22:58:52,449 [DEBUG] [DB:3] SQL: COMMIT
+2025-02-12 22:58:52,455 [DEBUG] [DB:3] Transaction committed
+2025-02-12 22:58:52,456 [DEBUG] [DB:3] Connection closed
+2025-02-12 22:58:52,456 [INFO] 
+==================================================
+Starting test: test_connection_lifecycle
+==================================================
+2025-02-12 22:58:52,456 [DEBUG] [DB:5] Opening database connection
+2025-02-12 22:58:52,457 [DEBUG] [DB:5] SQL: 
+                DELETE FROM test_foreign;
+2025-02-12 22:58:52,457 [DEBUG] [DB:5] SQL: 
+                DELETE FROM test_table;
+2025-02-12 22:58:52,465 [DEBUG] [DB:5] Transaction committed
+2025-02-12 22:58:52,466 [DEBUG] [DB:5] Connection closed
+2025-02-12 22:58:52,466 [INFO] Testing connection lifecycle
+2025-02-12 22:58:52,466 [DEBUG] [DB:6] Opening database connection
+2025-02-12 22:58:52,467 [DEBUG] [DB:6] SQL: BEGIN 
+2025-02-12 22:58:52,467 [DEBUG] [DB:6] SQL: INSERT INTO test_table (name, value) VALUES ('test1', 100)
+2025-02-12 22:58:52,467 [DEBUG] [DB:6] SQL: SELECT * FROM test_table
+2025-02-12 22:58:52,468 [DEBUG] Inserted and retrieved: (1, 'test1', 100)
+2025-02-12 22:58:52,468 [DEBUG] [DB:6] SQL: COMMIT
+2025-02-12 22:58:52,474 [DEBUG] [DB:6] Transaction committed
+2025-02-12 22:58:52,474 [DEBUG] [DB:6] Connection closed
+2025-02-12 22:58:52,475 [INFO] 
+==================================================
+Starting test: test_debug_helpers
+==================================================
+2025-02-12 22:58:52,475 [DEBUG] [DB:7] Opening database connection
+2025-02-12 22:58:52,476 [DEBUG] [DB:7] SQL: 
+                DELETE FROM test_foreign;
+2025-02-12 22:58:52,476 [DEBUG] [DB:7] SQL: 
+                DELETE FROM test_table;
+2025-02-12 22:58:52,483 [DEBUG] [DB:7] Transaction committed
+2025-02-12 22:58:52,484 [DEBUG] [DB:7] Connection closed
+2025-02-12 22:58:52,484 [INFO] Testing debug helpers
+2025-02-12 22:58:52,484 [DEBUG] [DB:8] Opening database connection
+2025-02-12 22:58:52,485 [DEBUG] [DB:8] SQL: PRAGMA table_info(test_table)
+2025-02-12 22:58:52,485 [DEBUG] [DB:8] Transaction committed
+2025-02-12 22:58:52,485 [DEBUG] [DB:8] Connection closed
+2025-02-12 22:58:52,485 [DEBUG] Table info: [(0, 'id', 'INTEGER', 0, None, 1), (1, 'name', 'TEXT', 0, None, 0), (2, 'value', 'INTEGER', 0, None, 0)]
+2025-02-12 22:58:52,485 [DEBUG] [DB:9] Opening database connection
+2025-02-12 22:58:52,485 [DEBUG] [DB:9] SQL: BEGIN 
+2025-02-12 22:58:52,485 [DEBUG] [DB:9] SQL: INSERT INTO test_table (name, value) VALUES ('test4', 400)
+2025-02-12 22:58:52,486 [DEBUG] [DB:9] SQL: COMMIT
+2025-02-12 22:58:52,494 [DEBUG] [DB:9] Transaction committed
+2025-02-12 22:58:52,494 [DEBUG] [DB:9] Connection closed
+2025-02-12 22:58:52,494 [DEBUG] [DB:10] Opening database connection
+2025-02-12 22:58:52,495 [DEBUG] [DB:10] SQL: SELECT COUNT(*) FROM test_table
+2025-02-12 22:58:52,495 [DEBUG] [DB:10] Transaction committed
+2025-02-12 22:58:52,496 [DEBUG] [DB:10] Connection closed
+2025-02-12 22:58:52,496 [DEBUG] Table count: 1
+2025-02-12 22:58:52,496 [INFO] 
+==================================================
+Starting test: test_transaction_rollback
+==================================================
+2025-02-12 22:58:52,496 [DEBUG] [DB:11] Opening database connection
+2025-02-12 22:58:52,496 [DEBUG] [DB:11] SQL: 
+                DELETE FROM test_foreign;
+2025-02-12 22:58:52,497 [DEBUG] [DB:11] SQL: 
+                DELETE FROM test_table;
+2025-02-12 22:58:52,504 [DEBUG] [DB:11] Transaction committed
+2025-02-12 22:58:52,504 [DEBUG] [DB:11] Connection closed
+2025-02-12 22:58:52,504 [INFO] Testing transaction rollback
+2025-02-12 22:58:52,504 [DEBUG] [DB:12] Opening database connection
+2025-02-12 22:58:52,506 [DEBUG] [DB:12] SQL: BEGIN 
+2025-02-12 22:58:52,506 [DEBUG] [DB:12] SQL: INSERT INTO test_table (name, value) VALUES ('test2', 200)
+2025-02-12 22:58:52,507 [DEBUG] [DB:12] SQL: COMMIT
+2025-02-12 22:58:52,515 [DEBUG] [DB:12] Transaction committed
+2025-02-12 22:58:52,515 [DEBUG] [DB:12] Connection closed
+2025-02-12 22:58:52,515 [DEBUG] [DB:13] Opening database connection
+2025-02-12 22:58:52,516 [DEBUG] [DB:13] SQL: BEGIN 
+2025-02-12 22:58:52,516 [DEBUG] [DB:13] SQL: INSERT INTO test_table (name, value) VALUES ('test3', 300)
+2025-02-12 22:58:52,517 [DEBUG] [DB:13] SQL: INSERT INTO test_foreign (test_id, data) VALUES (999, 'bad')
+2025-02-12 22:58:52,517 [DEBUG] [DB:13] SQL: ROLLBACK
+2025-02-12 22:58:52,517 [DEBUG] [DB:13] Transaction rolled back
+2025-02-12 22:58:52,517 [ERROR] [DB:13] Database error: FOREIGN KEY constraint failed
+Traceback (most recent call last):
+  File "C:\Users\Ryan\Desktop\AI_Assistant\AI_Project_Brain\db_manager.py", line 52, in get_cursor
+    yield cursor
+  File "C:\Users\Ryan\Desktop\AI_Assistant\tests\test_db_manager.py", line 101, in test_transaction_rollback
+    cursor.execute("INSERT INTO test_foreign (test_id, data) VALUES (999, 'bad')")
+sqlite3.IntegrityError: FOREIGN KEY constraint failed
+2025-02-12 22:58:52,518 [DEBUG] [DB:13] Connection closed
+2025-02-12 22:58:52,518 [INFO] Expected integrity error caught
+2025-02-12 22:58:52,518 [DEBUG] [DB:14] Opening database connection
+2025-02-12 22:58:52,519 [DEBUG] [DB:14] SQL: SELECT COUNT(*) FROM test_table
+2025-02-12 22:58:52,519 [DEBUG] After rollback, record count: 1
+2025-02-12 22:58:52,519 [DEBUG] [DB:14] Transaction committed
+2025-02-12 22:58:52,519 [DEBUG] [DB:14] Connection closed
+2025-02-12 22:58:52,519 [INFO] Cleaning up test environment
+2025-02-12 22:58:52,519 [DEBUG] [DB:15] Opening database connection
+2025-02-12 22:58:52,520 [DEBUG] [DB:15] SQL: 
+                DROP TABLE IF EXISTS test_foreign;
+2025-02-12 22:58:52,527 [DEBUG] [DB:15] SQL: 
+                DROP TABLE IF EXISTS test_table;
+2025-02-12 22:58:52,534 [DEBUG] [DB:15] Transaction committed
+2025-02-12 22:58:52,534 [DEBUG] [DB:15] Connection closed
+2025-02-12 22:58:52,535 [INFO] DB Manager tests completed
