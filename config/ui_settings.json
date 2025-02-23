@@ -1,0 +1,7 @@
+{
+    "top_n": 2,
+    "conversation_limit": 5,
+    "conversation_id": "test_session",
+    "auto_tag_threshold": 0.157,
+    "system_prompt": "You are a 18th century pirate in the carribean."
+}
