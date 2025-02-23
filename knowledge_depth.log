@@ -1,0 +1,278 @@
+2025-02-16 19:27:12,692 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-16 19:27:12,748 [DEBUG] Starting depth analysis for domain: None
+Function: analyze_depth, Line: 55
+2025-02-16 19:27:12,748 [WARNING] No data found for domain None
+Function: analyze_depth, Line: 67
+2025-02-16 19:29:53,561 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-16 19:29:53,622 [DEBUG] Starting depth analysis for domain: c30603db-4124-4e12-b177-7c35152a50f0
+Function: analyze_depth, Line: 55
+2025-02-16 19:29:53,622 [DEBUG] Domain data: {'topic_cluster': '["programming", "python"]', 'memory_count': 6, 'evidence_sources': '["\\"conversation\\"","\\"conversation\\"","\\"conversation\\"","document","document","document"]'}
+Function: analyze_depth, Line: 70
+2025-02-16 19:29:53,622 [DEBUG] Calculating vertical depth for c30603db-4124-4e12-b177-7c35152a50f0
+Function: _calculate_vertical_depth, Line: 101
+2025-02-16 19:29:53,623 [DEBUG] Calculating horizontal breadth for c30603db-4124-4e12-b177-7c35152a50f0
+Function: _calculate_horizontal_breadth, Line: 151
+2025-02-16 19:29:53,623 [DEBUG] Calculating application capability for c30603db-4124-4e12-b177-7c35152a50f0
+Function: _calculate_application_capability, Line: 182
+2025-02-16 19:29:53,623 [INFO] Depth analysis completed for c30603db-4124-4e12-b177-7c35152a50f0: {'vertical_depth': 0.0, 'horizontal_breadth': 0.0, 'application_capability': 0.0, 'overall_depth': 0.0}
+Function: analyze_depth, Line: 92
+2025-02-16 19:29:53,690 [DEBUG] Starting depth analysis for domain: 9bf27e00-2a79-47b8-a254-0b95920d4f39
+Function: analyze_depth, Line: 55
+2025-02-16 19:29:53,690 [DEBUG] Domain data: {'topic_cluster': '["programming", "python"]', 'memory_count': 3, 'evidence_sources': '["document","document","document"]'}
+Function: analyze_depth, Line: 70
+2025-02-16 19:29:53,690 [DEBUG] Calculating vertical depth for 9bf27e00-2a79-47b8-a254-0b95920d4f39
+Function: _calculate_vertical_depth, Line: 101
+2025-02-16 19:29:53,691 [DEBUG] Calculating horizontal breadth for 9bf27e00-2a79-47b8-a254-0b95920d4f39
+Function: _calculate_horizontal_breadth, Line: 151
+2025-02-16 19:29:53,691 [DEBUG] Calculating application capability for 9bf27e00-2a79-47b8-a254-0b95920d4f39
+Function: _calculate_application_capability, Line: 182
+2025-02-16 19:29:53,691 [INFO] Depth analysis completed for 9bf27e00-2a79-47b8-a254-0b95920d4f39: {'vertical_depth': 0.0, 'horizontal_breadth': 0.5, 'application_capability': 0.0, 'overall_depth': 0.15}
+Function: analyze_depth, Line: 92
+2025-02-17 11:14:11,444 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 11:14:11,697 [DEBUG] Starting depth analysis for domain: 90f2a805-10f5-48d0-9ab6-23a4a216754c
+Function: analyze_depth, Line: 55
+2025-02-17 11:14:11,698 [DEBUG] Domain data: {'topic_cluster': '["programming", "python"]', 'memory_count': 3, 'evidence_sources': '["document","document","document"]'}
+Function: analyze_depth, Line: 70
+2025-02-17 11:14:11,698 [DEBUG] Calculating vertical depth for 90f2a805-10f5-48d0-9ab6-23a4a216754c
+Function: _calculate_vertical_depth, Line: 101
+2025-02-17 11:14:11,698 [DEBUG] Calculating horizontal breadth for 90f2a805-10f5-48d0-9ab6-23a4a216754c
+Function: _calculate_horizontal_breadth, Line: 151
+2025-02-17 11:14:11,698 [DEBUG] Calculating application capability for 90f2a805-10f5-48d0-9ab6-23a4a216754c
+Function: _calculate_application_capability, Line: 182
+2025-02-17 11:14:11,699 [INFO] Depth analysis completed for 90f2a805-10f5-48d0-9ab6-23a4a216754c: {'vertical_depth': 0.0, 'horizontal_breadth': 0.0, 'application_capability': 0.0, 'overall_depth': 0.0}
+Function: analyze_depth, Line: 92
+2025-02-17 11:14:11,770 [DEBUG] Starting depth analysis for domain: 287223b8-3047-4c49-8804-d66084118c1e
+Function: analyze_depth, Line: 55
+2025-02-17 11:14:11,770 [DEBUG] Domain data: {'topic_cluster': '["programming", "python"]', 'memory_count': 3, 'evidence_sources': '["document","document","document"]'}
+Function: analyze_depth, Line: 70
+2025-02-17 11:14:11,770 [DEBUG] Calculating vertical depth for 287223b8-3047-4c49-8804-d66084118c1e
+Function: _calculate_vertical_depth, Line: 101
+2025-02-17 11:14:11,770 [DEBUG] Calculating horizontal breadth for 287223b8-3047-4c49-8804-d66084118c1e
+Function: _calculate_horizontal_breadth, Line: 151
+2025-02-17 11:14:11,770 [DEBUG] Calculating application capability for 287223b8-3047-4c49-8804-d66084118c1e
+Function: _calculate_application_capability, Line: 182
+2025-02-17 11:14:11,771 [INFO] Depth analysis completed for 287223b8-3047-4c49-8804-d66084118c1e: {'vertical_depth': 0.0, 'horizontal_breadth': 0.5, 'application_capability': 0.0, 'overall_depth': 0.15}
+Function: analyze_depth, Line: 92
+2025-02-17 11:16:54,673 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 11:16:54,725 [DEBUG] Starting depth analysis for domain: cc0e7612-8072-47f3-96fa-3db2fd6b3c81
+Function: analyze_depth, Line: 55
+2025-02-17 11:16:54,725 [DEBUG] Domain data: {'topic_cluster': '["programming", "python"]', 'memory_count': 3, 'evidence_sources': '["document","document","document"]'}
+Function: analyze_depth, Line: 70
+2025-02-17 11:16:54,726 [DEBUG] Calculating vertical depth for cc0e7612-8072-47f3-96fa-3db2fd6b3c81
+Function: _calculate_vertical_depth, Line: 101
+2025-02-17 11:16:54,726 [DEBUG] Calculating horizontal breadth for cc0e7612-8072-47f3-96fa-3db2fd6b3c81
+Function: _calculate_horizontal_breadth, Line: 151
+2025-02-17 11:16:54,726 [DEBUG] Calculating application capability for cc0e7612-8072-47f3-96fa-3db2fd6b3c81
+Function: _calculate_application_capability, Line: 182
+2025-02-17 11:16:54,726 [INFO] Depth analysis completed for cc0e7612-8072-47f3-96fa-3db2fd6b3c81: {'vertical_depth': 0.0, 'horizontal_breadth': 0.0, 'application_capability': 0.0, 'overall_depth': 0.0}
+Function: analyze_depth, Line: 92
+2025-02-17 11:16:54,794 [DEBUG] Starting depth analysis for domain: c6cf9020-e420-4e12-b869-415922620165
+Function: analyze_depth, Line: 55
+2025-02-17 11:16:54,794 [DEBUG] Domain data: {'topic_cluster': '["programming", "python"]', 'memory_count': 3, 'evidence_sources': '["document","document","document"]'}
+Function: analyze_depth, Line: 70
+2025-02-17 11:16:54,794 [DEBUG] Calculating vertical depth for c6cf9020-e420-4e12-b869-415922620165
+Function: _calculate_vertical_depth, Line: 101
+2025-02-17 11:16:54,795 [DEBUG] Calculating horizontal breadth for c6cf9020-e420-4e12-b869-415922620165
+Function: _calculate_horizontal_breadth, Line: 151
+2025-02-17 11:16:54,795 [DEBUG] Calculating application capability for c6cf9020-e420-4e12-b869-415922620165
+Function: _calculate_application_capability, Line: 182
+2025-02-17 11:16:54,795 [INFO] Depth analysis completed for c6cf9020-e420-4e12-b869-415922620165: {'vertical_depth': 0.0, 'horizontal_breadth': 0.5, 'application_capability': 0.0, 'overall_depth': 0.15}
+Function: analyze_depth, Line: 92
+2025-02-17 11:17:22,211 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 11:17:22,267 [DEBUG] Starting depth analysis for domain: cc74a7e0-1226-4d20-85ad-54007ec1c923
+Function: analyze_depth, Line: 55
+2025-02-17 11:17:22,267 [DEBUG] Domain data: {'topic_cluster': '["programming", "python"]', 'memory_count': 3, 'evidence_sources': '["document","document","document"]'}
+Function: analyze_depth, Line: 70
+2025-02-17 11:17:22,267 [DEBUG] Calculating vertical depth for cc74a7e0-1226-4d20-85ad-54007ec1c923
+Function: _calculate_vertical_depth, Line: 101
+2025-02-17 11:17:22,268 [DEBUG] Calculating horizontal breadth for cc74a7e0-1226-4d20-85ad-54007ec1c923
+Function: _calculate_horizontal_breadth, Line: 151
+2025-02-17 11:17:22,268 [DEBUG] Calculating application capability for cc74a7e0-1226-4d20-85ad-54007ec1c923
+Function: _calculate_application_capability, Line: 182
+2025-02-17 11:17:22,268 [INFO] Depth analysis completed for cc74a7e0-1226-4d20-85ad-54007ec1c923: {'vertical_depth': 0.0, 'horizontal_breadth': 0.0, 'application_capability': 0.0, 'overall_depth': 0.0}
+Function: analyze_depth, Line: 92
+2025-02-17 11:17:22,336 [DEBUG] Starting depth analysis for domain: 5ff31f6b-7178-4f1a-a7c2-54104ae08d5b
+Function: analyze_depth, Line: 55
+2025-02-17 11:17:22,336 [DEBUG] Domain data: {'topic_cluster': '["programming", "python"]', 'memory_count': 3, 'evidence_sources': '["document","document","document"]'}
+Function: analyze_depth, Line: 70
+2025-02-17 11:17:22,336 [DEBUG] Calculating vertical depth for 5ff31f6b-7178-4f1a-a7c2-54104ae08d5b
+Function: _calculate_vertical_depth, Line: 101
+2025-02-17 11:17:22,337 [DEBUG] Calculating horizontal breadth for 5ff31f6b-7178-4f1a-a7c2-54104ae08d5b
+Function: _calculate_horizontal_breadth, Line: 151
+2025-02-17 11:17:22,337 [DEBUG] Calculating application capability for 5ff31f6b-7178-4f1a-a7c2-54104ae08d5b
+Function: _calculate_application_capability, Line: 182
+2025-02-17 11:17:22,337 [INFO] Depth analysis completed for 5ff31f6b-7178-4f1a-a7c2-54104ae08d5b: {'vertical_depth': 0.0, 'horizontal_breadth': 0.5, 'application_capability': 0.0, 'overall_depth': 0.15}
+Function: analyze_depth, Line: 92
+2025-02-17 11:17:32,222 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 11:17:32,279 [DEBUG] Starting depth analysis for domain: ad77ac66-37e2-458b-b487-b1e4be207d92
+Function: analyze_depth, Line: 55
+2025-02-17 11:17:32,279 [DEBUG] Domain data: {'topic_cluster': '["programming", "python"]', 'memory_count': 3, 'evidence_sources': '["document","document","document"]'}
+Function: analyze_depth, Line: 70
+2025-02-17 11:17:32,279 [DEBUG] Calculating vertical depth for ad77ac66-37e2-458b-b487-b1e4be207d92
+Function: _calculate_vertical_depth, Line: 101
+2025-02-17 11:17:32,279 [DEBUG] Calculating horizontal breadth for ad77ac66-37e2-458b-b487-b1e4be207d92
+Function: _calculate_horizontal_breadth, Line: 151
+2025-02-17 11:17:32,280 [DEBUG] Calculating application capability for ad77ac66-37e2-458b-b487-b1e4be207d92
+Function: _calculate_application_capability, Line: 182
+2025-02-17 11:17:32,280 [INFO] Depth analysis completed for ad77ac66-37e2-458b-b487-b1e4be207d92: {'vertical_depth': 0.0, 'horizontal_breadth': 0.0, 'application_capability': 0.0, 'overall_depth': 0.0}
+Function: analyze_depth, Line: 92
+2025-02-17 11:17:32,345 [DEBUG] Starting depth analysis for domain: 979c2021-db5f-4cb9-b6ca-52c0969d25f7
+Function: analyze_depth, Line: 55
+2025-02-17 11:17:32,345 [DEBUG] Domain data: {'topic_cluster': '["programming", "python"]', 'memory_count': 3, 'evidence_sources': '["document","document","document"]'}
+Function: analyze_depth, Line: 70
+2025-02-17 11:17:32,345 [DEBUG] Calculating vertical depth for 979c2021-db5f-4cb9-b6ca-52c0969d25f7
+Function: _calculate_vertical_depth, Line: 101
+2025-02-17 11:17:32,345 [DEBUG] Calculating horizontal breadth for 979c2021-db5f-4cb9-b6ca-52c0969d25f7
+Function: _calculate_horizontal_breadth, Line: 151
+2025-02-17 11:17:32,345 [DEBUG] Calculating application capability for 979c2021-db5f-4cb9-b6ca-52c0969d25f7
+Function: _calculate_application_capability, Line: 182
+2025-02-17 11:17:32,347 [INFO] Depth analysis completed for 979c2021-db5f-4cb9-b6ca-52c0969d25f7: {'vertical_depth': 0.0, 'horizontal_breadth': 0.5, 'application_capability': 0.0, 'overall_depth': 0.15}
+Function: analyze_depth, Line: 92
+2025-02-17 11:19:20,574 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 11:20:59,837 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 11:22:42,112 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 11:23:56,467 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 11:25:41,596 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 11:25:41,609 [DEBUG] Starting depth analysis for domain: 966b7c70-7b79-4da6-be0c-963869b6dc6a
+Function: analyze_depth, Line: 55
+2025-02-17 11:25:41,610 [ERROR] Error in depth analysis: no such column: memory_count
+Function: analyze_depth, Line: 96
+Traceback (most recent call last):
+  File "c:\Users\Ryan\Desktop\AI_Assistant\AI_Project_Brain\knowledge_depth.py", line 59, in analyze_depth
+    cursor.execute("""
+sqlite3.OperationalError: no such column: memory_count
+2025-02-17 11:25:41,611 [DEBUG] Starting depth analysis for domain: 0660ebc2-1258-4854-9b0b-d1bee1e5982b
+Function: analyze_depth, Line: 55
+2025-02-17 11:25:41,612 [ERROR] Error in depth analysis: no such column: memory_count
+Function: analyze_depth, Line: 96
+Traceback (most recent call last):
+  File "c:\Users\Ryan\Desktop\AI_Assistant\AI_Project_Brain\knowledge_depth.py", line 59, in analyze_depth
+    cursor.execute("""
+sqlite3.OperationalError: no such column: memory_count
+2025-02-17 20:24:43,727 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 20:24:43,743 [DEBUG] Starting depth analysis for domain: 644f43ef-0ec8-4e0c-98ba-cd52eeea5825
+Function: analyze_depth, Line: 55
+2025-02-17 20:24:43,743 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 3, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:24:43,743 [DEBUG] Calculating horizontal breadth for 644f43ef-0ec8-4e0c-98ba-cd52eeea5825
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:24:43,744 [DEBUG] Calculating application capability for 644f43ef-0ec8-4e0c-98ba-cd52eeea5825
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:24:43,744 [INFO] Depth analysis completed for 644f43ef-0ec8-4e0c-98ba-cd52eeea5825: {'vertical_depth': 0.3571666666666667, 'horizontal_breadth': 0.8, 'application_capability': 0.0, 'overall_depth': 0.3828666666666667}
+Function: analyze_depth, Line: 95
+2025-02-17 20:24:43,745 [DEBUG] Starting depth analysis for domain: 36dcf60d-aba2-40ee-b986-754e1a946312
+Function: analyze_depth, Line: 55
+2025-02-17 20:24:43,745 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 5, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:24:43,745 [DEBUG] Calculating horizontal breadth for 36dcf60d-aba2-40ee-b986-754e1a946312
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:24:43,745 [DEBUG] Calculating application capability for 36dcf60d-aba2-40ee-b986-754e1a946312
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:24:43,745 [INFO] Depth analysis completed for 36dcf60d-aba2-40ee-b986-754e1a946312: {'vertical_depth': 0.37029999999999996, 'horizontal_breadth': 0.8, 'application_capability': 0.0, 'overall_depth': 0.38812}
+Function: analyze_depth, Line: 95
+2025-02-17 20:24:43,746 [DEBUG] Starting depth analysis for domain: 2ee57a04-0609-4cd6-84c3-cf24e809b9b2
+Function: analyze_depth, Line: 55
+2025-02-17 20:24:43,746 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 5, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:24:43,747 [DEBUG] Calculating horizontal breadth for 2ee57a04-0609-4cd6-84c3-cf24e809b9b2
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:24:43,747 [DEBUG] Calculating application capability for 2ee57a04-0609-4cd6-84c3-cf24e809b9b2
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:24:43,747 [INFO] Depth analysis completed for 2ee57a04-0609-4cd6-84c3-cf24e809b9b2: {'vertical_depth': 0.3571666666666667, 'horizontal_breadth': 0.65, 'application_capability': 0.0, 'overall_depth': 0.33786666666666665}
+Function: analyze_depth, Line: 95
+2025-02-17 20:25:56,994 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 20:25:57,007 [DEBUG] Starting depth analysis for domain: b0b814e7-1138-4fb6-8c93-20017fc30916
+Function: analyze_depth, Line: 55
+2025-02-17 20:25:57,007 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 3, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:25:57,007 [DEBUG] Calculating horizontal breadth for b0b814e7-1138-4fb6-8c93-20017fc30916
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:25:57,008 [DEBUG] Calculating application capability for b0b814e7-1138-4fb6-8c93-20017fc30916
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:25:57,008 [INFO] Depth analysis completed for b0b814e7-1138-4fb6-8c93-20017fc30916: {'vertical_depth': 0.3571666666666667, 'horizontal_breadth': 0.8, 'application_capability': 0.0, 'overall_depth': 0.3828666666666667}
+Function: analyze_depth, Line: 95
+2025-02-17 20:25:57,009 [DEBUG] Starting depth analysis for domain: f83dabc9-8e80-4f34-b987-b3731db5eba0
+Function: analyze_depth, Line: 55
+2025-02-17 20:25:57,009 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 5, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:25:57,009 [DEBUG] Calculating horizontal breadth for f83dabc9-8e80-4f34-b987-b3731db5eba0
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:25:57,009 [DEBUG] Calculating application capability for f83dabc9-8e80-4f34-b987-b3731db5eba0
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:25:57,009 [INFO] Depth analysis completed for f83dabc9-8e80-4f34-b987-b3731db5eba0: {'vertical_depth': 0.37029999999999996, 'horizontal_breadth': 0.8, 'application_capability': 0.0, 'overall_depth': 0.38812}
+Function: analyze_depth, Line: 95
+2025-02-17 20:25:57,010 [DEBUG] Starting depth analysis for domain: 719bf79a-abee-4004-96fa-a43ccda83035
+Function: analyze_depth, Line: 55
+2025-02-17 20:25:57,010 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 6, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:25:57,010 [DEBUG] Calculating horizontal breadth for 719bf79a-abee-4004-96fa-a43ccda83035
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:25:57,011 [DEBUG] Calculating application capability for 719bf79a-abee-4004-96fa-a43ccda83035
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:25:57,011 [INFO] Depth analysis completed for 719bf79a-abee-4004-96fa-a43ccda83035: {'vertical_depth': 0.3319166666666667, 'horizontal_breadth': 0.65, 'application_capability': 0.2, 'overall_depth': 0.38776666666666665}
+Function: analyze_depth, Line: 95
+2025-02-17 20:25:57,012 [DEBUG] Starting depth analysis for domain: 32abb3f9-68fc-4398-ae3f-4801cc942fef
+Function: analyze_depth, Line: 55
+2025-02-17 20:25:57,012 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 5, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:25:57,012 [DEBUG] Calculating horizontal breadth for 32abb3f9-68fc-4398-ae3f-4801cc942fef
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:25:57,012 [DEBUG] Calculating application capability for 32abb3f9-68fc-4398-ae3f-4801cc942fef
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:25:57,012 [INFO] Depth analysis completed for 32abb3f9-68fc-4398-ae3f-4801cc942fef: {'vertical_depth': 0.2899, 'horizontal_breadth': 0.8000000000000002, 'application_capability': 0.0, 'overall_depth': 0.35596000000000005}
+Function: analyze_depth, Line: 95
+2025-02-17 20:27:30,379 [INFO] Knowledge Depth Analyzer initialized
+Function: setup_logging, Line: 48
+2025-02-17 20:27:30,390 [DEBUG] Starting depth analysis for domain: b68d901f-e97c-407a-bf5c-f4cacb5513d5
+Function: analyze_depth, Line: 55
+2025-02-17 20:27:30,390 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 3, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:27:30,390 [DEBUG] Calculating horizontal breadth for b68d901f-e97c-407a-bf5c-f4cacb5513d5
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:27:30,391 [DEBUG] Calculating application capability for b68d901f-e97c-407a-bf5c-f4cacb5513d5
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:27:30,391 [INFO] Depth analysis completed for b68d901f-e97c-407a-bf5c-f4cacb5513d5: {'vertical_depth': 0.3571666666666667, 'horizontal_breadth': 0.8, 'application_capability': 0.0, 'overall_depth': 0.3828666666666667}
+Function: analyze_depth, Line: 95
+2025-02-17 20:27:30,392 [DEBUG] Starting depth analysis for domain: 8ae3dfa4-137a-4e8f-814c-cbc9abe7b709
+Function: analyze_depth, Line: 55
+2025-02-17 20:27:30,392 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 5, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:27:30,392 [DEBUG] Calculating horizontal breadth for 8ae3dfa4-137a-4e8f-814c-cbc9abe7b709
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:27:30,392 [DEBUG] Calculating application capability for 8ae3dfa4-137a-4e8f-814c-cbc9abe7b709
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:27:30,392 [INFO] Depth analysis completed for 8ae3dfa4-137a-4e8f-814c-cbc9abe7b709: {'vertical_depth': 0.37029999999999996, 'horizontal_breadth': 0.8, 'application_capability': 0.0, 'overall_depth': 0.38812}
+Function: analyze_depth, Line: 95
+2025-02-17 20:27:30,393 [DEBUG] Starting depth analysis for domain: 5c5ed4cb-4dc3-4099-825d-b18d18c2c82f
+Function: analyze_depth, Line: 55
+2025-02-17 20:27:30,393 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 8, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:27:30,393 [DEBUG] Calculating horizontal breadth for 5c5ed4cb-4dc3-4099-825d-b18d18c2c82f
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:27:30,394 [DEBUG] Calculating application capability for 5c5ed4cb-4dc3-4099-825d-b18d18c2c82f
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:27:30,394 [INFO] Depth analysis completed for 5c5ed4cb-4dc3-4099-825d-b18d18c2c82f: {'vertical_depth': 0.3199375, 'horizontal_breadth': 0.6666666666666666, 'application_capability': 0.4, 'overall_depth': 0.447975}
+Function: analyze_depth, Line: 95
+2025-02-17 20:27:30,394 [DEBUG] Starting depth analysis for domain: b9783492-2d1d-4d0e-bf9d-573be6f68790
+Function: analyze_depth, Line: 55
+2025-02-17 20:27:30,394 [DEBUG] Domain data: {'topic_cluster': '["python", "programming"]', 'memory_count': 5, 'evidence_sources': '["document", "document", "document"]'}
+Function: analyze_depth, Line: 73
+2025-02-17 20:27:30,395 [DEBUG] Calculating horizontal breadth for b9783492-2d1d-4d0e-bf9d-573be6f68790
+Function: _calculate_horizontal_breadth, Line: 138
+2025-02-17 20:27:30,395 [DEBUG] Calculating application capability for b9783492-2d1d-4d0e-bf9d-573be6f68790
+Function: _calculate_application_capability, Line: 169
+2025-02-17 20:27:30,395 [INFO] Depth analysis completed for b9783492-2d1d-4d0e-bf9d-573be6f68790: {'vertical_depth': 0.2899, 'horizontal_breadth': 0.8000000000000002, 'application_capability': 0.0, 'overall_depth': 0.35596000000000005}
+Function: analyze_depth, Line: 95

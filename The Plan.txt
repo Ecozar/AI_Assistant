@@ -1,0 +1,172 @@
+The Plan
+1. Overview
+Objective:
+Develop a robust, self-contained memory system ("the Brain") for an AI assistant running on your desktop. This system will serve as a knowledge hub, storing and retrieving context across a vast range of topics—from hard facts (e.g., current events, history, chemistry) to subjective opinions, to creative projects like fantasy world building—while maintaining conversation history. Later, this memory system will interface with an LLM (running via ollama) to provide personalized, context‑aware responses.
+
+Vision:
+
+A modular system where the “Brain” catalogs knowledge, conversation history, and personal facts.
+A retrieval pipeline that dynamically selects relevant information.
+A desktop UI that enables interaction, configuration, and manual data tagging.
+An eventual seamless integration with an LLM that leverages this memory to produce intelligent, coherent responses.
+Flexibility to ingest various file types (with future file processing enhancements).
+Ultimately, the entire project will be “plug and play” with consumer‑grade functionality for easy troubleshooting and use.
+2. Major Components and Phases
+Phase 1: Database Infrastructure & Memory Foundations
+Goals:
+
+Establish a robust database schema to serve as the foundation of the Brain.
+Ensure all necessary data (knowledge chunks, conversation history, personal facts) is stored in a scalable, query‑efficient manner.
+Key Steps:
+
+Conversation History Table:
+
+Create a table to log every interaction (user query and assistant response) with a conversation/session ID and timestamp.
+Plan for indexing on conversation IDs and timestamps.
+Personal Facts / Knowledge Base Table:
+
+Create a table for static knowledge, opinions, or facts.
+Include metadata fields (e.g., tags, timestamps) to enable categorization and filtering.
+Text Chunks Table (Static Knowledge):
+
+Use (or enhance) an existing table (for example, an FTS5 virtual table) to store chunks of text along with embeddings.
+Consider adding columns for source metadata and tagging.
+Future Tables (Optional):
+
+Tasks/Reminders: For potential future assistant capabilities.
+Configuration/Settings: For parameters like context chunk count, conversation turn limits, etc.
+Conversation Sessions: For tracking individual conversation sessions with additional metadata.
+Phase 2: Retrieval Pipeline & Prompt Construction
+Goals:
+
+Build a dynamic retrieval system to query the knowledge base effectively.
+Construct clear, well‑structured prompts that incorporate both static knowledge and conversation context.
+Key Steps:
+
+Dynamic Retrieval:
+
+Implement a retrieval function that uses cosine similarity (or another metric) to rank text chunks based on a given query.
+Make the number of retrieved chunks configurable (e.g., via a top_n parameter).
+Integration of Conversation History:
+
+Write functions to log each interaction and retrieve recent conversation turns for inclusion in new prompts.
+Allow session‑based retrieval so that each conversation is tracked separately.
+Advanced Prompt Builder:
+
+Develop a function that assembles:
+An instruction or header.
+Retrieved static context (knowledge chunks).
+Recent conversation history.
+The current user query.
+Experiment with clear formatting (e.g., using section headers such as “Knowledge:” and “Conversation History:”) to optimize clarity for future LLM integration.
+Phase 3: Desktop UI Enhancements
+Goals:
+
+Create a user‑friendly, self‑contained desktop interface for interacting with the Brain.
+Enable not only query submission and response viewing but also comprehensive memory management.
+Key Steps:
+
+Core UI for Interaction:
+
+Develop a basic UI (using Tkinter) to submit queries and display responses.
+Ensure the UI calls the retrieval and inference pipelines correctly.
+Memory Viewer & Editor:
+
+Add functionality to view logged conversation history and personal facts.
+Provide options to edit or delete entries, allowing you to curate the Brain manually.
+Manual Data Tagging Window:
+
+Create a dedicated window or panel for manual review and tagging of database entries.
+Enable assignment or modification of tags for unstructured or ambiguous information.
+Configuration Panel:
+
+Incorporate settings that allow adjustment of parameters such as:
+The number of context chunks to retrieve.
+The number of conversation turns to include.
+Other retrieval or prompt‑building options.
+Phase 4: Robust File Processing & Ingestion (Future Enhancement)
+Goals:
+
+Enable the Brain to ingest and process a wide variety of file types, enriching the knowledge base with data from multiple sources.
+Key Steps:
+
+File Processing Module:
+
+Develop handlers for different file types (e.g., .txt, .pdf, .docx, etc.) to extract text and metadata.
+Plan for future support of additional types (images via OCR, CSV files, HTML pages, etc.).
+Integration with Database:
+
+Create processes to automatically chunk extracted text, generate embeddings, and insert processed data into the text_chunks (or personal facts) tables.
+Phase 5: Logging, Testing, and Documentation
+Goals:
+
+Ensure the system is robust, maintainable, and well‑understood before LLM integration.
+Key Steps:
+
+Detailed Logging:
+
+Implement logging in all major modules (database interactions, retrieval, prompt building, UI actions) for debugging and performance monitoring.
+Testing:
+
+Write unit tests and integration tests for each component (database functions, retrieval accuracy, prompt construction, UI functionality).
+Documentation:
+
+Create comprehensive documentation detailing:
+The database schema.
+Module interfaces and configuration options.
+Overall system design.
+Maintain and regularly update “The Plan” as the project evolves.
+Phase 6: Future Integration with the LLM
+Goals:
+
+When the Brain is fully robust, integrate a local LLM (e.g., deepseek‑r1:8B via ollama) to generate intelligent responses.
+Ensure that the LLM leverages all the context provided by the memory system.
+Key Steps:
+
+Define a Clear Interface:
+
+Document the expected input/output of the inference module (e.g., generate_response(query, conversation_id) -> response), ensuring it uses the constructed prompt.
+Integration:
+
+Replace dummy inference responses with real calls to the LLM.
+Test and refine prompt construction and retrieval to optimize generated response quality.
+Iterative Improvement:
+
+Use real interaction feedback to further tune the retrieval pipeline, prompt formatting, and memory management processes.
+3. Timeline and Milestones
+Phase 1:
+
+Complete database schema enhancements and verify tables.
+Milestone: A working database with conversation history and personal facts.
+Phase 2:
+
+Implement and test dynamic retrieval and advanced prompt builder.
+Milestone: A functional retrieval pipeline that constructs coherent prompts from stored data.
+Phase 3:
+
+Enhance the desktop UI to support query submission, memory viewing, manual tagging, and configuration.
+Milestone: A fully functional UI that integrates with the retrieval system and allows comprehensive memory management.
+Phase 4:
+
+Develop file processing capabilities and integrate them for future ingestion.
+Milestone: A module that can process various file types (optional for now).
+Phase 5:
+
+Complete logging, testing, and documentation.
+Milestone: A robust, well‑documented system with reliable performance.
+Phase 6:
+
+Integrate the LLM using the established interface and refine based on feedback.
+Milestone: A cohesive AI assistant that leverages its robust memory to generate context‑aware responses.
+4. Final Considerations
+Flexibility:
+The system is designed to be modular and extensible. Future modifications—such as adding new tags, adjusting retrieval parameters, or expanding file processing—should not require a complete rebuild.
+
+Personalization:
+By combining conversation history, personal facts, and dynamic retrieval, the assistant can maintain a unique personality and adapt to a wide variety of topics, from factual to creative domains.
+
+Continuous Improvement:
+“The Plan” will evolve as you gain insights and encounter new requirements. Regular reviews and updates will ensure the project remains on track.
+
+Plug and Play:
+The final system should be as plug‑and‑play as possible, focusing on consumer‑grade functionality. This means the entire setup will be user‑friendly, with robust troubleshooting features and minimal configuration required from the end user.

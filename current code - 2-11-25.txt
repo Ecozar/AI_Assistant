@@ -1,0 +1,1350 @@
+main.py:
+
+import logging
+import threading
+from AI_Project_ui.desktop_ui import start_ui
+from AI_Project_Brain.app import app
+
+"""
+Main entry point for the AI Assistant.
+This script configures global logging and starts the desktop UI.
+"""
+
+def start_flask():
+    """Start Flask server"""
+    app.run(debug=False, port=5000)
+
+def main():
+    """Start both Flask server and desktop UI"""
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s %(levelname)s: %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    
+    # Start Flask in background
+    flask_thread = threading.Thread(target=start_flask, daemon=True)
+    flask_thread.start()
+    
+    # Start desktop UI
+    start_ui()
+
+if __name__ == "__main__":
+    main()
+
+text_utils.py:
+
+import logging
+import fitz  # PyMuPDF for PDF extraction
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+# Single shared model instance
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+def generate_embedding(text: str) -> np.ndarray:
+    """Generate an embedding vector for the given text."""
+    return model.encode([text])[0]
+
+def read_text_file(file_path: str) -> str:
+    """Read text file with multiple encoding attempts."""
+    encodings = ['utf-8', 'latin1', 'cp1252']
+    for encoding in encodings:
+        try:
+            with open(file_path, 'r', encoding=encoding) as f:
+                return f.read()
+        except UnicodeDecodeError:
+            continue
+    logging.warning("Unable to decode text file: %s", file_path)
+    return "(Unable to decode text file)"
+
+def read_pdf_file(file_path: str) -> str:
+    """Extract text from a PDF file."""
+    try:
+        doc = fitz.open(file_path)
+        text = "\n".join(page.get_text("text") for page in doc)
+        return text.strip() if text else "(No extractable text found)"
+    except Exception as e:
+        logging.error("Error extracting PDF text from %s: %s", file_path, e)
+        return f"(Error extracting PDF text: {str(e)})"
+
+def chunk_text(text: str, chunk_size: int = 500) -> list:
+    """Split text into chunks and generate embeddings."""
+    words = text.split()
+    chunks = [" ".join(words[i:i+chunk_size]) for i in range(0, len(words), chunk_size)]
+    return [(chunk, generate_embedding(chunk)) for chunk in chunks]
+
+config.py:
+
+import os
+
+# Project paths
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+DB_FILE = os.path.join(PROJECT_ROOT, "AI_Project_Brain", "files.db")
+UPLOAD_FOLDER = os.path.join(PROJECT_ROOT, "uploads")
+
+# File handling
+ALLOWED_EXTENSIONS = {'.txt', '.pdf'}
+
+# Search and retrieval parameters
+EMBEDDING_SIMILARITY_THRESHOLD = 0.2
+TOP_N_KNOWLEDGE_CHUNKS = 2
+CONVERSATION_LIMIT = 5
+
+# Approved tags for the assistant (can be expanded or modified later)
+APPROVED_TAGS = [
+    "factual", "technical", "creative", "historical", "scientific",
+    "opinion", "personal", "fantasy", "literary", "art", "music",
+    "philosophy", "technology/geek", "miscellaneous"
+]
+
+desktop_ui.py:
+
+import sys
+import os
+# Ensure the project root (one level up) is in sys.path so that shared modules can be imported.
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+import tkinter as tk
+from tkinter import scrolledtext, messagebox, filedialog, ttk
+import logging
+import sqlite3
+
+from AI_Project_Brain.conversation_logger import update_interaction, update_record_tags
+from AI_Project_database.auto_tagging import get_suggested_tags
+from AI_Project_Brain.dummy_retrieval import get_relevant_context
+from AI_Project_Brain.conversation_retriever import get_conversation_context
+from AI_Project_Brain.advanced_prompt_builder import build_prompt
+
+# Global configuration dictionary for UI settings.
+CONFIG = {
+    "top_n": 2,
+    "conversation_limit": 5,
+    "conversation_id": "test_session",
+    "auto_tag_threshold": 0.2  # Default threshold for auto-tagging
+}
+
+APPROVED_TAGS = [
+    "factual", "technical", "creative", "historical", "scientific",
+    "opinion", "personal", "fantasy", "literary", "art", "music",
+    "philosophy", "technology/geek", "miscellaneous"
+]
+
+KEYWORD_TAG_MAP = {
+    "science": "scientific",
+    "history": "historical",
+    "tech": "technology/geek",
+    "art": "art",
+    "music": "music",
+    "opinion": "opinion",
+}
+
+def open_edit_window(record, refresh_callback):
+    edit_win = tk.Toplevel()
+    edit_win.title("Edit Record")
+    edit_win.geometry("450x500")
+    edit_win.minsize(450, 500)
+    
+    if len(record) == 4:
+        record_id, timestamp, user_msg, assistant_msg = record
+        current_tags = ""
+    else:
+        record_id, timestamp, user_msg, assistant_msg, current_tags = record
+        if current_tags is None or current_tags.lower() == "none":
+            current_tags = ""
+    
+    tk.Label(edit_win, text=f"Editing Record ID: {record_id}").pack(pady=5)
+    
+    tk.Label(edit_win, text="User Message:").pack(anchor="w", padx=10)
+    user_text = tk.Text(edit_win, height=4, width=40)
+    user_text.pack(padx=10)
+    user_text.insert(tk.END, user_msg)
+    
+    tk.Label(edit_win, text="Assistant Message:").pack(anchor="w", padx=10)
+    assistant_text = tk.Text(edit_win, height=4, width=40)
+    assistant_text.pack(padx=10)
+    assistant_text.insert(tk.END, assistant_msg)
+    
+    tk.Label(edit_win, text="Select a Tag:").pack(anchor="w", padx=10)
+    tag_combo = ttk.Combobox(edit_win, values=APPROVED_TAGS, state="readonly")
+    tag_combo.pack(padx=10, pady=5)
+    tag_combo.set(APPROVED_TAGS[0])
+    
+    tk.Label(edit_win, text="Current Tags:").pack(anchor="w", padx=10)
+    current_tags_var = tk.StringVar(value=current_tags)
+    tags_label = tk.Label(edit_win, textvariable=current_tags_var)
+    tags_label.pack(padx=10, pady=5)
+    
+    def add_tag():
+        tag = tag_combo.get()
+        tags = [t.strip() for t in current_tags_var.get().split(",") if t.strip()] if current_tags_var.get() else []
+        if tag not in tags:
+            tags.append(tag)
+            current_tags_var.set(", ".join(tags))
+        else:
+            messagebox.showinfo("Info", f"Tag '{tag}' is already added.")
+    
+    def remove_tag():
+        tag = tag_combo.get()
+        tags = [t.strip() for t in current_tags_var.get().split(",") if t.strip()] if current_tags_var.get() else []
+        if tag in tags:
+            tags.remove(tag)
+            current_tags_var.set(", ".join(tags))
+        else:
+            messagebox.showinfo("Info", f"Tag '{tag}' is not present.")
+    
+    add_tag_button = tk.Button(edit_win, text="Add Tag", command=add_tag)
+    add_tag_button.pack(pady=5)
+    remove_tag_button = tk.Button(edit_win, text="Remove Tag", command=remove_tag)
+    remove_tag_button.pack(pady=5)
+
+    def auto_tag():
+        text = (user_text.get("1.0", tk.END) + " " + assistant_text.get("1.0", tk.END)).strip()
+        if not text:
+            messagebox.showinfo("Auto-Tagging", "No text found for tagging.")
+            return
+        suggestions = get_suggested_tags(text, threshold=CONFIG["auto_tag_threshold"])
+        if not suggestions:
+            messagebox.showinfo("Auto-Tagging", "No relevant tags suggested based on the content.")
+            return
+        suggestions_str = ", ".join(suggestions)
+        confirm = messagebox.askyesno("Auto-Tagging", f"Apply the following suggested tags?\n{suggestions_str}")
+        if confirm:
+            current = [t.strip() for t in current_tags_var.get().split(",") if t.strip()] if current_tags_var.get() else []
+            for tag in suggestions:
+                if tag not in current:
+                    current.append(tag)
+            new_tags = ", ".join(current)
+            current_tags_var.set(new_tags)
+            from AI_Project_Brain.conversation_logger import log_auto_tag
+            log_auto_tag(record_id, suggestions_str)
+            messagebox.showinfo("Auto-Tagging", f"Suggested tags applied: {suggestions_str}\nThis event has been logged for review.")
+    
+    auto_tag_button = tk.Button(edit_win, text="Auto-Tag", command=auto_tag)
+    auto_tag_button.pack(pady=5)
+
+    def save_changes():
+        new_user_msg = user_text.get("1.0", tk.END).strip()
+        new_assistant_msg = assistant_text.get("1.0", tk.END).strip()
+        new_tags = current_tags_var.get().strip()
+        update_interaction(record_id, new_user_msg, new_assistant_msg, new_tags)
+        messagebox.showinfo("Success", "Record updated successfully.")
+        edit_win.destroy()
+        refresh_callback()
+    
+    save_button = tk.Button(edit_win, text="Save", command=save_changes)
+    save_button.pack(pady=10)
+
+def open_memory_management():
+    mem_window = tk.Toplevel()
+    mem_window.title("Memory Management")
+    mem_window.geometry("800x500")
+    mem_window.minsize(800, 500)
+    
+    columns = ("id", "timestamp", "user_message", "assistant_message", "tags")
+    tree = ttk.Treeview(mem_window, columns=columns, show="headings", selectmode="extended")
+    for col in columns:
+        tree.heading(col, text=col.capitalize())
+    tree.column("id", width=50)
+    tree.column("timestamp", width=150)
+    tree.column("user_message", width=200)
+    tree.column("assistant_message", width=200)
+    tree.column("tags", width=100)
+    tree.pack(fill="both", expand=True, pady=10)
+    
+    def refresh_memory():
+        tree.delete(*tree.get_children())
+        db_path = os.path.join(project_root, "AI_Project_Brain", "files.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        conversation_id = CONFIG["conversation_id"]
+        cursor.execute(
+            """
+            SELECT id, timestamp, user_message, assistant_message, tags
+            FROM conversation_history 
+            WHERE conversation_id = ?
+            ORDER BY id ASC
+            """,
+            (conversation_id,)
+        )
+        rows = cursor.fetchall()
+        logging.debug("refresh_memory: retrieved %d records.", len(rows))
+        conn.close()
+        for row in rows:
+            tree.insert("", tk.END, values=row)
+    
+    def edit_selected():
+        selected = tree.focus()
+        if not selected:
+            messagebox.showwarning("No selection", "Please select a record to edit.")
+            return
+        record = tree.item(selected, "values")
+        open_edit_window(record, refresh_memory)
+    
+    def view_untagged():
+        untagged_win = tk.Toplevel()
+        untagged_win.title("Untagged Records")
+        untagged_win.geometry("600x400")
+        
+        untagged_tree = ttk.Treeview(untagged_win, columns=columns, show="headings")
+        for col in columns:
+            untagged_tree.heading(col, text=col.capitalize())
+        untagged_tree.column("id", width=50)
+        untagged_tree.column("timestamp", width=150)
+        untagged_tree.column("user_message", width=200)
+        untagged_tree.column("assistant_message", width=200)
+        untagged_tree.column("tags", width=100)
+        untagged_tree.pack(fill="both", expand=True, pady=10)
+        
+        db_path = os.path.join(project_root, "AI_Project_Brain", "files.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            SELECT id, timestamp, user_message, assistant_message, tags
+            FROM conversation_history 
+            WHERE tags IS NULL OR tags = ''
+            ORDER BY id ASC
+            """
+        )
+        rows = cursor.fetchall()
+        conn.close()
+        for row in rows:
+            untagged_tree.insert("", tk.END, values=row)
+    
+    def get_current_tags(record_id):
+        db_path = os.path.join(project_root, "AI_Project_Brain", "files.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT tags FROM conversation_history WHERE id = ?", (record_id,))
+        result = cursor.fetchone()
+        conn.close()
+        return result[0] if result and result[0] is not None else ""
+    
+    def bulk_edit_selected():
+        selected_items = tree.selection()
+        if not selected_items:
+            messagebox.showwarning("No selection", "Please select at least one record for bulk editing.")
+            return
+
+        record_ids = [tree.item(item, "values")[0] for item in selected_items]
+
+        bulk_win = tk.Toplevel()
+        bulk_win.title("Bulk Edit Records")
+        bulk_win.geometry("400x300")
+        tk.Label(bulk_win, text="Bulk Edit for Record IDs: " + ", ".join(map(str, record_ids))).pack(pady=5)
+        
+        tk.Label(bulk_win, text="Select a Tag:").pack(anchor="w", padx=10)
+        tag_combo = ttk.Combobox(bulk_win, values=APPROVED_TAGS, state="readonly")
+        tag_combo.pack(padx=10, pady=5)
+        tag_combo.set(APPROVED_TAGS[0])
+        
+        def apply_add_tag():
+            tag = tag_combo.get()
+            for rec_id in record_ids:
+                current_tags = get_current_tags(rec_id)
+                tags_list = [t.strip() for t in current_tags.split(",") if t.strip()] if current_tags else []
+                if tag not in tags_list:
+                    tags_list.append(tag)
+                new_tags = ", ".join(tags_list)
+                update_record_tags(rec_id, new_tags)
+            messagebox.showinfo("Bulk Edit", "Tag added to selected records.")
+            bulk_win.destroy()
+            refresh_memory()
+
+        def apply_remove_tag():
+            tag = tag_combo.get()
+            for rec_id in record_ids:
+                current_tags = get_current_tags(rec_id)
+                tags_list = [t.strip() for t in current_tags.split(",") if t.strip()] if current_tags else []
+                if tag in tags_list:
+                    tags_list.remove(tag)
+                new_tags = ", ".join(tags_list)
+                update_record_tags(rec_id, new_tags)
+            messagebox.showinfo("Bulk Edit", "Tag removed from selected records.")
+            bulk_win.destroy()
+            refresh_memory()
+        
+        add_button = tk.Button(bulk_win, text="Add Tag to Selected", command=apply_add_tag)
+        add_button.pack(pady=5)
+        remove_button = tk.Button(bulk_win, text="Remove Tag from Selected", command=apply_remove_tag)
+        remove_button.pack(pady=5)
+        close_button = tk.Button(bulk_win, text="Close", command=bulk_win.destroy)
+        close_button.pack(pady=10)
+    
+    bulk_edit_button = tk.Button(mem_window, text="Bulk Edit Selected", command=bulk_edit_selected)
+    bulk_edit_button.pack(pady=5)
+
+    refresh_button = tk.Button(mem_window, text="Refresh", command=refresh_memory)
+    refresh_button.pack(pady=5)
+    
+    edit_button = tk.Button(mem_window, text="Edit Selected", command=edit_selected)
+    edit_button.pack(pady=5)
+    
+    view_untagged_button = tk.Button(mem_window, text="View Untagged", command=view_untagged)
+    view_untagged_button.pack(pady=5)
+    
+    refresh_memory()
+
+def open_document_upload():
+    file_path = filedialog.askopenfilename(
+        title="Select a Document",
+        filetypes=(("Text files", "*.txt"), ("All files", "*.*"))
+    )
+    if not file_path:
+        return
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            extracted_text = f.read()
+    except Exception as e:
+        messagebox.showerror("Error", f"Failed to read the file: {e}")
+        return
+    doc_window = tk.Toplevel()
+    doc_window.title("Document Content")
+    doc_window.geometry("600x400")
+    text_area = scrolledtext.ScrolledText(doc_window, width=70, height=20)
+    text_area.pack(pady=10)
+    text_area.insert(tk.END, extracted_text)
+    messagebox.showinfo("Upload Complete", "Document processed (dummy processing).")
+
+def open_settings():
+    settings_win = tk.Toplevel()
+    settings_win.title("Settings")
+    settings_win.geometry("600x500")  # Increased window size
+    
+    tk.Label(settings_win, text="Settings", font=("Arial", 16)).pack(pady=10)
+    
+    # Number of Knowledge Chunks
+    tk.Label(settings_win, text="Number of Knowledge Chunks (top_n):").pack(anchor="w", padx=10)
+    top_n_var = tk.IntVar(value=CONFIG["top_n"])
+    tk.Entry(settings_win, textvariable=top_n_var).pack(padx=10, pady=5)
+    
+    # Conversation History Limit
+    tk.Label(settings_win, text="Conversation History Limit:").pack(anchor="w", padx=10)
+    conv_limit_var = tk.IntVar(value=CONFIG["conversation_limit"])
+    tk.Entry(settings_win, textvariable=conv_limit_var).pack(padx=10, pady=5)
+    
+    # Auto-Tag Threshold
+    tk.Label(settings_win, text="Auto-Tag Threshold (0-1):").pack(anchor="w", padx=10)
+    auto_tag_thresh_var = tk.DoubleVar(value=CONFIG["auto_tag_threshold"])
+    tk.Entry(settings_win, textvariable=auto_tag_thresh_var).pack(padx=10, pady=5)
+    
+    # Approved Tags List (existing)
+    tk.Label(settings_win, text="Approved Tags:").pack(anchor="w", padx=10)
+    tags_listbox = tk.Listbox(settings_win, selectmode=tk.SINGLE, height=6)
+    for tag in APPROVED_TAGS:
+        tags_listbox.insert(tk.END, tag)
+    tags_listbox.pack(padx=10, pady=5, fill="x")
+    
+    # New Tag Entry
+    tk.Label(settings_win, text="New Tag:").pack(anchor="w", padx=10)
+    new_tag_var = tk.StringVar()
+    tk.Entry(settings_win, textvariable=new_tag_var).pack(padx=10, pady=5)
+    
+    def add_new_tag():
+        new_tag = new_tag_var.get().strip()
+        if new_tag and new_tag not in APPROVED_TAGS:
+            APPROVED_TAGS.append(new_tag)
+            tags_listbox.insert(tk.END, new_tag)
+            messagebox.showinfo("Success", f"Tag '{new_tag}' added.")
+            new_tag_var.set("")
+        else:
+            messagebox.showwarning("Warning", "Invalid or duplicate tag.")
+    
+    def remove_selected_tag():
+        selection = tags_listbox.curselection()
+        if selection:
+            tag_to_remove = tags_listbox.get(selection[0])
+            APPROVED_TAGS.remove(tag_to_remove)
+            tags_listbox.delete(selection[0])
+            messagebox.showinfo("Success", f"Tag '{tag_to_remove}' removed.")
+        else:
+            messagebox.showwarning("Warning", "Please select a tag to remove.")
+    
+    tk.Button(settings_win, text="Add Tag", command=add_new_tag).pack(pady=5)
+    tk.Button(settings_win, text="Remove Selected Tag", command=remove_selected_tag).pack(pady=5)
+    
+    def save_settings():
+        try:
+            CONFIG["top_n"] = int(top_n_var.get())
+            CONFIG["conversation_limit"] = int(conv_limit_var.get())
+            CONFIG["auto_tag_threshold"] = float(auto_tag_thresh_var.get())
+            messagebox.showinfo("Success", "Settings updated successfully.")
+            settings_win.destroy()
+        except ValueError:
+            messagebox.showerror("Error", "Please enter valid numeric values.")
+    
+    tk.Button(settings_win, text="Save", command=save_settings).pack(pady=10)
+    
+    def view_untagged():
+        untagged_win = tk.Toplevel()
+        untagged_win.title("Untagged Records")
+        untagged_win.geometry("600x400")
+        columns = ("id", "timestamp", "user_message", "assistant_message", "tags")
+        tree = ttk.Treeview(untagged_win, columns=columns, show="headings")
+        for col in columns:
+            tree.heading(col, text=col.capitalize())
+        tree.column("id", width=50)
+        tree.column("timestamp", width=150)
+        tree.column("user_message", width=200)
+        tree.column("assistant_message", width=200)
+        tree.column("tags", width=100)
+        tree.pack(fill="both", expand=True, pady=10)
+        
+        db_path = os.path.join(project_root, "AI_Project_Brain", "files.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            SELECT id, timestamp, user_message, assistant_message, tags
+            FROM conversation_history 
+            WHERE tags IS NULL OR tags = ''
+            ORDER BY id ASC
+            """
+        )
+        rows = cursor.fetchall()
+        conn.close()
+        for row in rows:
+            tree.insert("", tk.END, values=row)
+    
+    tk.Button(settings_win, text="View Untagged Records", command=view_untagged).pack(pady=5)
+
+def start_ui():
+    root = tk.Tk()
+    root.title("AI Assistant UI")
+    
+    query_entry = tk.Entry(root, width=50)
+    query_entry.pack(pady=10)
+    
+    output_area = scrolledtext.ScrolledText(root, width=60, height=10)
+    output_area.pack(pady=10)
+    
+    def submit_query():
+        query = query_entry.get()
+        knowledge_chunks = get_relevant_context(query, top_n=CONFIG["top_n"])
+        conversation_context = get_conversation_context(conversation_id=CONFIG["conversation_id"], limit=CONFIG["conversation_limit"])
+        prompt = build_prompt(query, knowledge_chunks, conversation_context)
+        response = "Dummy response for prompt: " + prompt
+        output_area.delete(1.0, tk.END)
+        output_area.insert(tk.END, response)
+    
+    submit_button = tk.Button(root, text="Submit", command=submit_query)
+    submit_button.pack(pady=5)
+    
+    manage_memory_button = tk.Button(root, text="Manage Memory", command=open_memory_management)
+    manage_memory_button.pack(pady=5)
+    
+    upload_button = tk.Button(root, text="Upload Document", command=open_document_upload)
+    upload_button.pack(pady=5)
+    
+    settings_button = tk.Button(root, text="Settings", command=open_settings)
+    settings_button.pack(pady=5)
+    
+    root.mainloop()
+
+if __name__ == "__main__":
+    import logging
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s %(levelname)s: %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    start_ui()
+
+inference.py:
+
+import sys
+import os
+# Ensure the project root (one level up) is in sys.path.
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+from AI_Project_Brain.dummy_retrieval import get_relevant_context, build_prompt  # type: ignore
+
+def generate_response(query: str) -> str:
+    context = get_relevant_context(query)
+    prompt = build_prompt(query, context)
+    return "Dummy response for prompt: " + prompt
+
+if __name__ == "__main__":
+    sample_query = "Hello, world!"
+    print(generate_response(sample_query))
+
+
+auto_tagging.py:
+
+import sys
+import os
+# Ensure the project root is in sys.path.
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+from text_utils import model  # Use shared model instance
+
+TAG_DESCRIPTIONS = {
+    "scientific": "systematic study and research in natural sciences",
+    "historical": "past events, traditions, ancient civilizations",
+    "technology": "digital innovation, computing, programming",
+    "art": "painting, sculpture, drawing, design, visual art",
+    "music": "musical performance, composition, production",
+    "opinion": "personal views, critiques, editorial commentary"
+    # ... keep only essential tags
+}
+
+def get_suggested_tags(text: str, threshold: float = 0.2) -> list:
+    """Get suggested tags based on text content."""
+    if not isinstance(text, str) or not text:
+        return []
+    
+    try:
+        text_embedding = model.encode(text)
+        suggestions = []
+        
+        for tag, description in TAG_DESCRIPTIONS.items():
+            tag_embedding = model.encode(description)
+            similarity = cosine_similarity([text_embedding], [tag_embedding])[0][0]
+            if similarity >= threshold:
+                suggestions.append(tag)
+        
+        return suggestions
+    except Exception as e:
+        print(f"Error in get_suggested_tags: {str(e)}")
+        return []
+
+
+advanced_prompt_builder.py:
+
+import sys
+import os
+# Ensure the project root (one level up) is in sys.path.
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+"""
+Module: advanced_prompt_builder
+Provides a function to build a complete prompt for the AI assistant by integrating
+static knowledge, conversation history, and the current user query.
+"""
+
+def build_prompt(query: str, knowledge_chunks: list, conversation_context: list = None) -> str:
+    """
+    Constructs a complete prompt by integrating static knowledge, conversation history,
+    and the current user query.
+    
+    Parameters:
+        query (str): The current user query.
+        knowledge_chunks (list): A list of strings representing knowledge chunks.
+        conversation_context (list, optional): A list of tuples (user_message, assistant_message, timestamp).
+        
+    Returns:
+        str: The complete prompt to be passed to the LLM.
+    """
+    prompt = "Instruction: Use the context below to provide a detailed, coherent answer.\n\n"
+    if knowledge_chunks:
+        prompt += "Knowledge:\n" + "\n".join(knowledge_chunks) + "\n\n"
+    if conversation_context:
+        prompt += "Conversation History:\n"
+        for user_msg, assistant_msg, timestamp in conversation_context:
+            prompt += f"User: {user_msg}\nAssistant: {assistant_msg}\n"
+        prompt += "\n"
+    prompt += "Current Query: " + query
+    return prompt
+
+if __name__ == "__main__":
+    import logging
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s %(levelname)s: %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    knowledge = [
+        "The Earth orbits the Sun once every 365.25 days.",
+        "Water boils at 100°C at sea level."
+    ]
+    conversation = [
+        ("Hello, how are you?", "I am fine, thank you!", "2025-02-10 18:11:09"),
+        ("What's the weather like?", "It's sunny today.", "2025-02-10 18:16:23")
+    ]
+    query = "Why does the Earth orbit the Sun?"
+    prompt = build_prompt(query, knowledge, conversation)
+    print("Generated Prompt:")
+    print(prompt)
+
+
+app.py:
+
+import sys
+import os
+# Ensure the project root (one level up) is in sys.path so that shared modules can be imported.
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+import sqlite3
+import time
+import json
+import logging
+from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+
+import fitz  # PyMuPDF for PDF extraction
+import numpy as np
+from flask import Flask, request, redirect, url_for, render_template_string, flash, get_flashed_messages
+from markupsafe import escape
+from werkzeug.utils import secure_filename
+from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer
+
+# Import shared configuration and utilities.
+from config import DB_FILE, UPLOAD_FOLDER, ALLOWED_EXTENSIONS  # ALLOWED_EXTENSIONS now defined in config.py
+from text_utils import generate_embedding, read_text_file, read_pdf_file, chunk_text
+
+# Configure logging to output to both a file and the console.
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s %(levelname)s: %(message)s',
+    handlers=[
+        logging.FileHandler("app.log"),
+        logging.StreamHandler()
+    ]
+)
+
+app = Flask(__name__)
+app.secret_key = 'supersecretkey'  # Consider moving this to config.py later.
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+executor = ThreadPoolExecutor(max_workers=4)
+
+# Optionally, initialize the embedding model here (if needed separately).
+# (Note: generate_embedding() in text_utils.py already loads its own model.)
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+def init_db():
+    """Initialize database with required tables."""
+    try:
+        with sqlite3.connect(DB_FILE) as conn:
+            conn.executescript('''
+                CREATE TABLE IF NOT EXISTS files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    filename TEXT NOT NULL UNIQUE,
+                    file_size INTEGER,
+                    file_type TEXT,
+                    upload_time TEXT
+                );
+                CREATE VIRTUAL TABLE IF NOT EXISTS text_chunks USING FTS5(
+                    file_id UNINDEXED,
+                    chunk_index UNINDEXED,
+                    content,
+                    embedding
+                );
+                CREATE TABLE IF NOT EXISTS tags (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL UNIQUE
+                );
+                CREATE TABLE IF NOT EXISTS file_tags (
+                    file_id INTEGER,
+                    tag_id INTEGER,
+                    PRIMARY KEY (file_id, tag_id),
+                    FOREIGN KEY (file_id) REFERENCES files(id),
+                    FOREIGN KEY (tag_id) REFERENCES tags(id)
+                );
+            ''')
+        logging.info("Database initialized successfully")
+    except Exception as e:
+        logging.error("Database initialization error: %s", e)
+        raise
+
+@app.route('/')
+def upload_form():
+    """Render the main upload form with flash messages."""
+    messages = get_flashed_messages(with_categories=True)
+    return render_template_string('''
+        <h2>Upload a File</h2>
+        {% for category, message in messages %}
+            <div class="{{ category }}">{{ message }}</div>
+        {% endfor %}
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <input type="submit" value="Upload">
+        </form>
+        <br>
+        <nav>
+            <a href="/files">🔍 View/Search Files</a> |
+            <a href="/chunks">📜 View Chunked Data</a> |
+            <a href="/logs">📋 View Logs</a> |
+            <a href="/semantic_search">🔎 Semantic Search</a> |
+            <a href="/purge_memory">🗑️ Purge Memory</a>
+        </nav>
+    ''', messages=messages)
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    """Handle file upload and processing asynchronously."""
+    if 'file' not in request.files:
+        flash("No file part in request", "error")
+        return redirect(url_for('upload_form'))
+
+    file = request.files['file']
+    if file.filename == '':
+        flash("No selected file", "error")
+        return redirect(url_for('upload_form'))
+
+    filename = secure_filename(file.filename)
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    # Check if file already exists.
+    if os.path.exists(file_path):
+        flash(f"File '{filename}' already exists", "error")
+        return redirect(url_for('upload_form'))
+
+    try:
+        file.save(file_path)
+        file_size = os.path.getsize(file_path)
+        file_type = os.path.splitext(filename)[1].lower()
+        upload_time = time.strftime('%Y-%m-%d %H:%M:%S')
+
+        if file_type not in ALLOWED_EXTENSIONS:
+            os.remove(file_path)
+            flash("Unsupported file format", "error")
+            return redirect(url_for('upload_form'))
+
+        # Read content based on file type.
+        content = (read_text_file(file_path) if file_type == '.txt'
+                   else read_pdf_file(file_path) if file_type == '.pdf'
+                   else None)
+
+        if not content:
+            flash("No content could be extracted from file", "error")
+            return redirect(url_for('upload_form'))
+
+        def process_upload():
+            try:
+                with sqlite3.connect(DB_FILE) as conn:
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        "INSERT INTO files (filename, file_size, file_type, upload_time) VALUES (?,?,?,?)",
+                        (filename, file_size, file_type, upload_time)
+                    )
+                    file_id = cursor.lastrowid
+
+                    # Process and store text chunks with embeddings.
+                    for idx, (chunk, embedding) in enumerate(chunk_text(content)):
+                        cursor.execute(
+                            "INSERT INTO text_chunks (file_id, chunk_index, content, embedding) VALUES (?,?,?,?)",
+                            (file_id, idx, chunk, json.dumps(embedding.tolist()))
+                        )
+                    conn.commit()
+                logging.info("File %s processed successfully with %d chunks", filename, idx + 1)
+            except Exception as e:
+                logging.error("Error processing file %s: %s", filename, e)
+
+        executor.submit(process_upload)
+        flash(f"File '{filename}' uploaded and being processed", "success")
+        return redirect(url_for('upload_form'))
+
+    except Exception as e:
+        logging.error("Error handling upload for %s: %s", filename, e)
+        flash(f"Error processing upload: {str(e)}", "error")
+        return redirect(url_for('upload_form'))
+
+@app.route('/semantic_search', methods=['GET', 'POST'])
+def semantic_search():
+    """Handle semantic search functionality."""
+    if request.method == 'POST':
+        query = request.form.get('query', '').strip()
+        if not query:
+            flash("No query provided", "error")
+            return redirect(url_for('semantic_search'))
+
+        try:
+            # Generate embedding for the query using our shared function.
+            query_embedding = generate_embedding(query)
+            
+            # Retrieve all stored chunks.
+            with sqlite3.connect(DB_FILE) as conn:
+                cursor = conn.cursor()
+                cursor.execute('SELECT file_id, chunk_index, content, embedding FROM text_chunks')
+                chunks = cursor.fetchall()
+
+            # Compute cosine similarities.
+            results = []
+            for file_id, chunk_index, content, embedding_json in chunks:
+                chunk_embedding = np.array(json.loads(embedding_json))
+                similarity = cosine_similarity([query_embedding], [chunk_embedding])[0][0]
+                results.append((file_id, chunk_index, content, similarity))
+
+            results.sort(key=lambda x: x[3], reverse=True)
+            top_results = results[:10]
+
+            return render_template_string('''
+                <h2>Search Results:</h2>
+                <ul>
+                {% for file_id, chunk_index, content, similarity in results %}
+                    <li>
+                        <b>File ID: {{ file_id }}</b> [Chunk {{ chunk_index }}] 
+                        (Similarity: {{ "%.2f"|format(similarity) }})<br>
+                        {{ content[:200] }}...
+                    </li><br>
+                {% endfor %}
+                </ul>
+                <a href="/">Back to Home</a>
+            ''', results=top_results)
+
+        except Exception as e:
+            logging.error("Search error: %s", e)
+            flash("Error during search", "error")
+            return redirect(url_for('semantic_search'))
+
+    return render_template_string('''
+        <h2>Semantic Search</h2>
+        <form method="POST">
+            <input type="text" name="query" placeholder="Enter your search query" required>
+            <input type="submit" value="Search">
+        </form>
+        <br>
+        <a href="/">Back to Home</a>
+    ''')
+
+@app.route('/logs', methods=['GET'])
+def view_logs():
+    """Display application logs with optional date/time filtering."""
+    date_start = request.args.get('date_start', '').strip()
+    time_start = request.args.get('time_start', '').strip()
+    date_end = request.args.get('date_end', '').strip()
+    time_end = request.args.get('time_end', '').strip()
+
+    start_dt = end_dt = None
+    try:
+        if date_start:
+            start_dt = datetime.strptime(
+                f"{date_start} {time_start}" if time_start else date_start,
+                "%Y-%m-%d %H:%M" if time_start else "%Y-%m-%d"
+            )
+        if date_end:
+            end_dt = datetime.strptime(
+                f"{date_end} {time_end}" if time_end else date_end,
+                "%Y-%m-%d %H:%M" if time_end else "%Y-%m-%d"
+            )
+    except ValueError as e:
+        logging.error("Date parsing error: %s", e)
+        flash("Invalid date format", "error")
+        return redirect(url_for('view_logs'))
+
+    try:
+        with open("app.log", "r") as log_file:
+            log_lines = log_file.readlines()
+
+        if start_dt or end_dt:
+            filtered_lines = []
+            for line in log_lines:
+                try:
+                    log_dt = datetime.strptime(line[:19], "%Y-%m-%d %H:%M:%S")
+                    if (not start_dt or log_dt >= start_dt) and (not end_dt or log_dt <= end_dt):
+                        filtered_lines.append(line)
+                except ValueError:
+                    continue
+            log_content = ''.join(filtered_lines)
+        else:
+            log_content = ''.join(log_lines[-100:])
+    except Exception as e:
+        logging.error("Error reading log file: %s", e)
+        log_content = "Error reading log file."
+
+    return render_template_string('''
+        <h2>Application Logs</h2>
+        <form method="GET">
+            Start Date: <input type="date" name="date_start" value="{{ date_start }}">
+            Start Time: <input type="time" name="time_start" value="{{ time_start }}">
+            <br>
+            End Date: <input type="date" name="date_end" value="{{ date_end }}">
+            End Time: <input type="time" name="time_end" value="{{ time_end }}">
+            <br><br>
+            <input type="submit" value="Filter Logs">
+        </form>
+        <textarea id="logBox" style="width:100%; height:400px;" readonly>{{ content }}</textarea>
+        <br>
+        <button onclick="copyLogs()">Copy Logs</button>
+        <br>
+        <a href="/">Back to Home</a>
+        <script>
+            function copyLogs() {
+                var copyText = document.getElementById("logBox");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+                alert("Logs copied to clipboard!");
+            }
+        </script>
+    ''', date_start=date_start, time_start=time_start,
+       date_end=date_end, time_end=time_end, content=log_content)
+
+@app.route('/chunks', methods=['GET'])
+def view_chunks():
+    """Display stored text chunks with associated file information."""
+    try:
+        with sqlite3.connect(DB_FILE) as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT files.filename, text_chunks.chunk_index, text_chunks.content 
+                FROM text_chunks 
+                JOIN files ON files.id = text_chunks.file_id
+                ORDER BY files.filename, text_chunks.chunk_index
+            ''')
+            chunks = cursor.fetchall()
+    except Exception as e:
+        logging.error("Error retrieving chunks: %s", e)
+        flash("Error retrieving chunks", "error")
+        return redirect(url_for('upload_form'))
+
+    return render_template_string('''
+        <h2>Stored Chunks:</h2>
+        <ul>
+        {% for filename, chunk_index, content in chunks %}
+            <li>
+                <b>{{ filename }}</b> [Chunk {{ chunk_index }}]<br>
+                {{ content[:300] }}...
+            </li><br>
+        {% endfor %}
+        </ul>
+        <a href="/">Back to Home</a>
+    ''', chunks=chunks)
+
+@app.route('/files', methods=['GET'])
+def search_files():
+    """Search files and their chunks with optional filters."""
+    query = request.args.get('query', '').strip()
+    file_type = request.args.get('file_type', '').strip()
+    start_date = request.args.get('start_date', '').strip()
+    end_date = request.args.get('end_date', '').strip()
+    tag = request.args.get('tag', '').strip()
+
+    try:
+        with sqlite3.connect(DB_FILE) as conn:
+            cursor = conn.cursor()
+            sql_query = """
+                SELECT files.filename, files.file_size, files.file_type, files.upload_time,
+                       text_chunks.chunk_index, text_chunks.content
+                FROM files
+                JOIN text_chunks ON files.id = text_chunks.file_id
+                LEFT JOIN file_tags ON files.id = file_tags.file_id
+                LEFT JOIN tags ON file_tags.tag_id = tags.id
+                WHERE 1=1
+            """
+            params = []
+            if query:
+                sql_query += " AND text_chunks MATCH ?"
+                params.append(f"content:{query}")
+            if file_type:
+                sql_query += " AND files.file_type = ?"
+                params.append(file_type)
+            if start_date:
+                sql_query += " AND files.upload_time >= ?"
+                params.append(start_date)
+            if end_date:
+                sql_query += " AND files.upload_time <= ?"
+                params.append(end_date)
+            if tag:
+                sql_query += " AND tags.name = ?"
+                params.append(tag)
+            cursor.execute(sql_query, params)
+            results = cursor.fetchall()
+
+        return render_template_string('''
+            <h2>Search Files</h2>
+            <form method="GET">
+                Search Content: <input type="text" name="query" value="{{ query }}">
+                <br>File Type: <input type="text" name="file_type" placeholder=".txt or .pdf" value="{{ file_type }}">
+                <br>From Date: <input type="date" name="start_date" value="{{ start_date }}">
+                <br>To Date: <input type="date" name="end_date" value="{{ end_date }}">
+                <br>Tag: <input type="text" name="tag" placeholder="Tag" value="{{ tag }}">
+                <br><br>
+                <input type="submit" value="Search">
+            </form>
+            <h2>Results:</h2>
+            <ul>
+            {% for filename, size, type, upload_time, chunk_index, content in results %}
+                <li>
+                    <b>{{ filename }}</b> [Chunk {{ chunk_index }}]
+                    ({{ "%.2f"|format(size/1024) }} KB, {{ type }}) | Uploaded: {{ upload_time }}<br>
+                    Preview: {{ content[:200] }}...
+                </li><br>
+            {% endfor %}
+            </ul>
+            <a href="/">Back to Home</a>
+        ''', query=query, file_type=file_type, start_date=start_date, 
+             end_date=end_date, tag=tag, results=results)
+
+    except Exception as e:
+        logging.error("Error searching files: %s", e)
+        flash("Error searching files", "error")
+        return redirect(url_for('upload_form'))
+
+@app.route('/purge_memory', methods=['GET', 'POST'])
+def purge_memory():
+    """Purge all data from the database and remove uploaded files."""
+    if request.method == 'POST':
+        confirmation = request.form.get('confirmation', '').strip().lower()
+        if confirmation == 'yes':
+            try:
+                # Drop all relevant tables.
+                with sqlite3.connect(DB_FILE) as conn:
+                    cursor = conn.cursor()
+                    cursor.execute('DROP TABLE IF EXISTS text_chunks')
+                    cursor.execute('DROP TABLE IF EXISTS file_tags')
+                    cursor.execute('DROP TABLE IF EXISTS tags')
+                    cursor.execute('DROP TABLE IF EXISTS files')
+                    conn.commit()
+
+                # Reinitialize the database.
+                init_db()
+
+                # Remove all files in the uploads folder.
+                for filename in os.listdir(UPLOAD_FOLDER):
+                    file_path = os.path.join(UPLOAD_FOLDER, filename)
+                    if os.path.isfile(file_path):
+                        os.remove(file_path)
+
+                flash("Memory purged successfully", "success")
+            except Exception as e:
+                logging.error("Error purging memory: %s", e)
+                flash("Error purging memory", "error")
+        else:
+            flash("Memory purge cancelled", "info")
+        return redirect(url_for('upload_form'))
+
+    return render_template_string('''
+        <h2>Purge Memory</h2>
+        <p>Are you sure you want to purge all memory? This action cannot be undone.</p>
+        <form method="POST">
+            <label for="confirmation">Type "yes" to confirm:</label>
+            <input type="text" name="confirmation" id="confirmation" required>
+            <input type="submit" value="Purge">
+        </form>
+        <br>
+        <a href="/">Cancel</a>
+    ''')
+
+if __name__ == '__main__':
+    init_db()
+    app.run(debug=True)
+
+
+conversation_logger.py:
+
+import sys
+import os
+# Ensure the project root is in sys.path.
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+import logging
+import sqlite3
+from config import DB_FILE
+
+def update_interaction(record_id: int, new_user_message: str, new_assistant_message: str, new_tags: str = None):
+    logging.debug("update_interaction called with record_id: %s, new_user_message: %s, new_assistant_message: %s, new_tags: %s",
+                  record_id, new_user_message, new_assistant_message, new_tags)
+    db_path = DB_FILE
+    conn = None
+    try:
+        logging.debug("Connecting to database at %s for update", db_path)
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        if new_tags is None:
+            new_tags = ""
+        cursor.execute(
+            """
+            UPDATE conversation_history
+            SET user_message = ?, assistant_message = ?, tags = ?
+            WHERE id = ?
+            """,
+            (new_user_message, new_assistant_message, new_tags, record_id)
+        )
+        conn.commit()
+        logging.info("Successfully updated record id: %s", record_id)
+    except sqlite3.Error as e:
+        logging.error("SQLite error during update_interaction: %s", e)
+    finally:
+        if conn:
+            conn.close()
+            logging.debug("Database connection closed after update")
+
+def update_record_tags(record_id: int, new_tags: str):
+    db_path = DB_FILE
+    conn = None
+    try:
+        logging.debug("Connecting to database at %s for update_record_tags", db_path)
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("UPDATE conversation_history SET tags = ? WHERE id = ?", (new_tags, record_id))
+        conn.commit()
+        logging.info("Successfully updated tags for record id: %s", record_id)
+    except sqlite3.Error as e:
+        logging.error("SQLite error during update_record_tags: %s", e)
+    finally:
+        if conn:
+            conn.close()
+            logging.debug("Database connection closed after update_record_tags")
+
+def log_interaction(conversation_id: str, user_message: str, assistant_message: str):
+    db_path = DB_FILE
+    conn = None
+    try:
+        logging.debug("Connecting to database at %s", db_path)
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        logging.debug("Inserting interaction into conversation_history")
+        cursor.execute(
+            """
+            INSERT INTO conversation_history (conversation_id, user_message, assistant_message)
+            VALUES (?, ?, ?)
+            """,
+            (conversation_id, user_message, assistant_message)
+        )
+        conn.commit()
+        logging.info("Successfully logged interaction for conversation_id: %s", conversation_id)
+    except sqlite3.Error as e:
+        logging.error("SQLite error during log_interaction: %s", e)
+    finally:
+        if conn:
+            conn.close()
+            logging.debug("Database connection closed")
+
+def log_auto_tag(record_id: int, suggested_tags: str):
+    db_path = DB_FILE
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS auto_tag_log (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            record_id INTEGER,
+            suggested_tags TEXT,
+            reviewed INTEGER DEFAULT 0,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+        """
+    )
+    cursor.execute(
+        """
+        INSERT INTO auto_tag_log (record_id, suggested_tags, reviewed)
+        VALUES (?, ?, 0)
+        """,
+        (record_id, suggested_tags)
+    )
+    conn.commit()
+    conn.close()
+    # For testing purposes:
+    log_interaction("test_session", "Hello, how are you?", "I am fine, thank you!")
+    update_interaction(1, "Hello, how are you?", "I am fine, thank you!", "friendly, casual")
+    logging.info("Test interaction logged and updated successfully.")
+
+if __name__ == "__main__":
+    import logging
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s %(levelname)s: %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+
+conversation_retriever.py:
+
+import sys
+import os
+# Ensure the project root is in sys.path.
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+import logging
+import sqlite3
+from config import DB_FILE
+
+"""
+Module: conversation_retriever
+Provides functions to retrieve conversation history from the conversation_history table.
+"""
+
+def get_conversation_context(conversation_id: str = "default", limit: int = 5):
+    db_path = DB_FILE
+    conn = None
+    try:
+        logging.debug("Connecting to database at %s for retrieval", db_path)
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            SELECT user_message, assistant_message, timestamp
+            FROM conversation_history
+            WHERE conversation_id = ?
+            ORDER BY id ASC
+            LIMIT ?
+            """,
+            (conversation_id, limit)
+        )
+        rows = cursor.fetchall()
+        logging.debug("Retrieved %d records from conversation_history", len(rows))
+        return rows
+    except sqlite3.Error as e:
+        logging.error("SQLite error during get_conversation_context: %s", e)
+        return []
+    finally:
+        if conn:
+            conn.close()
+            logging.debug("Database connection closed after retrieval")
+
+if __name__ == "__main__":
+    import logging
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s %(levelname)s: %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    context = get_conversation_context("test_session", limit=5)
+    print("Retrieved conversation context:")
+    for record in context:
+        print(record)
+
+
+dummy_retriever.py:
+
+import sys
+import os
+# Ensure the project root is in sys.path.
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+import sqlite3
+import json
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+from text_utils import generate_embedding
+
+def get_relevant_context(query: str, top_n: int = 5) -> list:
+    """Simplified version for testing purposes."""
+    return [f"Dummy context {i}" for i in range(top_n)]
+
+def build_prompt(query: str, context_chunks: list) -> str:
+    """Simplified prompt builder for testing."""
+    return f"Query: {query}\nContext: {', '.join(context_chunks)}"
+
+if __name__ == "__main__":
+    sample_query = "Tell me something about artificial intelligence."
+    context = get_relevant_context(sample_query)
+    prompt = build_prompt(sample_query, context)
+    print("Constructed Prompt:")
+    print(prompt)
+
+
+
+

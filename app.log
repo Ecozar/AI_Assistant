@@ -1,0 +1,709 @@
+2025-02-20 20:38:46 [INFO] Use pytorch device_name: cpu
+2025-02-20 20:38:46 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 20:38:47 [INFO] Loaded existing personality state
+2025-02-20 20:38:48 [INFO] Memory access tracker initialized
+2025-02-20 20:38:48 [DEBUG] Refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming', 'python', 'ai', 'testing', 'database']
+2025-02-20 20:38:48 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 20:38:48 [INFO] Adding embedding column
+2025-02-20 20:38:48 [INFO] Adding optimization_metadata column
+2025-02-20 20:38:48 [INFO] Memory optimizer initialized
+2025-02-20 20:44:22 [INFO] Use pytorch device_name: cpu
+2025-02-20 20:44:22 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 20:44:23 [INFO] Loaded existing personality state
+2025-02-20 20:44:23 [INFO] Memory access tracker initialized
+2025-02-20 20:44:23 [DEBUG] Refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming', 'python', 'ai', 'testing', 'database']
+2025-02-20 20:44:23 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 20:44:23 [INFO] Adding embedding column
+2025-02-20 20:44:23 [INFO] Adding optimization_metadata column
+2025-02-20 20:44:23 [INFO] Memory optimizer initialized
+2025-02-20 20:58:38 [INFO] Use pytorch device_name: cpu
+2025-02-20 20:58:38 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 20:58:38 [INFO] Loaded existing personality state
+2025-02-20 21:00:42 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:00:42 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:00:42 [INFO] Loaded existing personality state
+2025-02-20 21:00:43 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming', 'python', 'ai', 'testing', 'database']
+2025-02-20 21:00:43 [INFO] Memory access tracker initialized
+2025-02-20 21:00:43 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:00:43 [INFO] Adding embedding column
+2025-02-20 21:00:43 [INFO] Adding optimization_metadata column
+2025-02-20 21:00:43 [INFO] Memory optimizer initialized
+2025-02-20 21:06:31 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:06:31 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:06:31 [INFO] Loaded existing personality state
+2025-02-20 21:06:32 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 21:06:32 [INFO] Memory access tracker initialized
+2025-02-20 21:06:32 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:06:32 [INFO] Adding embedding column
+2025-02-20 21:06:32 [INFO] Adding optimization_metadata column
+2025-02-20 21:06:32 [INFO] Memory optimizer initialized
+2025-02-20 21:09:02 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:09:02 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:09:03 [INFO] Loaded existing personality state
+2025-02-20 21:09:03 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 21:09:03 [INFO] Memory access tracker initialized
+2025-02-20 21:09:03 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:09:03 [INFO] Adding embedding column
+2025-02-20 21:09:03 [INFO] Adding optimization_metadata column
+2025-02-20 21:09:03 [INFO] Memory optimizer initialized
+2025-02-20 21:19:20 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:19:20 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:19:21 [INFO] Loaded existing personality state
+2025-02-20 21:19:22 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 21:19:22 [INFO] Memory access tracker initialized
+2025-02-20 21:19:22 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:19:22 [INFO] Adding embedding column
+2025-02-20 21:19:22 [INFO] Adding optimization_metadata column
+2025-02-20 21:19:22 [INFO] Memory optimizer initialized
+2025-02-20 21:26:03 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:26:03 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:26:04 [INFO] Loaded existing personality state
+2025-02-20 21:26:04 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 21:26:04 [INFO] Memory access tracker initialized
+2025-02-20 21:26:04 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:26:04 [INFO] Adding embedding column
+2025-02-20 21:26:04 [INFO] Adding optimization_metadata column
+2025-02-20 21:26:04 [INFO] Memory optimizer initialized
+2025-02-20 21:35:39 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:35:39 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:35:40 [INFO] Loaded existing personality state
+2025-02-20 21:35:40 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 21:35:40 [INFO] Memory access tracker initialized
+2025-02-20 21:35:40 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:35:40 [INFO] Adding embedding column
+2025-02-20 21:35:40 [INFO] Adding optimization_metadata column
+2025-02-20 21:35:40 [INFO] Memory optimizer initialized
+2025-02-20 21:39:53 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:39:53 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:39:54 [INFO] Loaded existing personality state
+2025-02-20 21:39:54 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 21:39:54 [INFO] Memory access tracker initialized
+2025-02-20 21:39:54 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:39:54 [INFO] Adding embedding column
+2025-02-20 21:39:54 [INFO] Adding optimization_metadata column
+2025-02-20 21:39:54 [INFO] Memory optimizer initialized
+2025-02-20 21:44:22 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:44:22 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:44:22 [INFO] Loaded existing personality state
+2025-02-20 21:44:23 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 21:44:23 [INFO] Memory access tracker initialized
+2025-02-20 21:44:23 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:44:23 [INFO] Adding embedding column
+2025-02-20 21:44:23 [INFO] Adding optimization_metadata column
+2025-02-20 21:44:23 [INFO] Memory optimizer initialized
+2025-02-20 21:46:26 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:46:26 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:46:27 [INFO] Loaded existing personality state
+2025-02-20 21:46:27 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 21:46:27 [INFO] Memory access tracker initialized
+2025-02-20 21:46:27 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:46:27 [INFO] Adding embedding column
+2025-02-20 21:46:27 [INFO] Adding optimization_metadata column
+2025-02-20 21:46:27 [INFO] Memory optimizer initialized
+2025-02-20 21:49:25 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:49:25 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:49:26 [INFO] Loaded existing personality state
+2025-02-20 21:49:26 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 21:49:26 [INFO] Memory access tracker initialized
+2025-02-20 21:49:26 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:49:26 [INFO] Adding embedding column
+2025-02-20 21:49:26 [INFO] Adding optimization_metadata column
+2025-02-20 21:49:26 [INFO] Memory optimizer initialized
+2025-02-20 21:54:16 [INFO] Use pytorch device_name: cpu
+2025-02-20 21:54:16 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 21:54:17 [INFO] Loaded existing personality state
+2025-02-20 21:54:17 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 21:54:17 [INFO] Memory access tracker initialized
+2025-02-20 21:54:17 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 21:54:17 [INFO] Adding embedding column
+2025-02-20 21:54:17 [INFO] Adding optimization_metadata column
+2025-02-20 21:54:17 [INFO] Memory optimizer initialized
+2025-02-20 22:14:38 [INFO] Use pytorch device_name: cpu
+2025-02-20 22:14:38 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 22:14:38 [INFO] Loaded existing personality state
+2025-02-20 22:14:38 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 22:14:38 [INFO] Memory access tracker initialized
+2025-02-20 22:14:38 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 22:14:38 [INFO] Adding embedding column
+2025-02-20 22:14:38 [INFO] Adding optimization_metadata column
+2025-02-20 22:14:38 [INFO] Memory optimizer initialized
+2025-02-20 22:18:42 [INFO] Use pytorch device_name: cpu
+2025-02-20 22:18:42 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 22:18:42 [INFO] Loaded existing personality state
+2025-02-20 22:18:43 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 22:18:43 [INFO] Memory access tracker initialized
+2025-02-20 22:18:43 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 22:18:43 [INFO] Adding embedding column
+2025-02-20 22:18:43 [INFO] Adding optimization_metadata column
+2025-02-20 22:18:43 [INFO] Memory optimizer initialized
+2025-02-20 22:26:59 [INFO] Use pytorch device_name: cpu
+2025-02-20 22:26:59 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 22:27:00 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 22:27:00 [INFO] Loaded existing personality state
+2025-02-20 22:27:00 [INFO] Memory access tracker initialized
+2025-02-20 22:27:00 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 22:27:00 [INFO] Adding embedding column
+2025-02-20 22:27:00 [INFO] Adding optimization_metadata column
+2025-02-20 22:27:00 [INFO] Memory optimizer initialized
+2025-02-20 22:30:00 [INFO] Use pytorch device_name: cpu
+2025-02-20 22:30:00 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 22:30:02 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 22:30:02 [INFO] Loaded existing personality state
+2025-02-20 22:30:03 [INFO] Memory access tracker initialized
+2025-02-20 22:30:03 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 22:30:03 [INFO] Adding embedding column
+2025-02-20 22:30:03 [INFO] Adding optimization_metadata column
+2025-02-20 22:30:03 [INFO] Memory optimizer initialized
+2025-02-20 22:38:57 [INFO] Use pytorch device_name: cpu
+2025-02-20 22:38:57 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 22:38:58 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 22:38:58 [INFO] Loaded existing personality state
+2025-02-20 22:38:58 [INFO] Memory access tracker initialized
+2025-02-20 22:38:58 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 22:38:58 [INFO] Adding embedding column
+2025-02-20 22:38:58 [INFO] Adding optimization_metadata column
+2025-02-20 22:38:58 [INFO] Memory optimizer initialized
+2025-02-20 22:40:36 [INFO] Use pytorch device_name: cpu
+2025-02-20 22:40:36 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-20 22:40:37 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-20 22:40:37 [INFO] Loaded existing personality state
+2025-02-20 22:40:37 [INFO] Memory access tracker initialized
+2025-02-20 22:40:37 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-20 22:40:37 [INFO] Adding embedding column
+2025-02-20 22:40:37 [INFO] Adding optimization_metadata column
+2025-02-20 22:40:37 [INFO] Memory optimizer initialized
+2025-02-21 16:07:20 [INFO] Use pytorch device_name: cpu
+2025-02-21 16:07:20 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 16:07:20 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-21 16:07:20 [INFO] Loaded existing personality state
+2025-02-21 16:07:21 [INFO] Memory access tracker initialized
+2025-02-21 16:07:21 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-21 16:07:21 [INFO] Adding embedding column
+2025-02-21 16:07:21 [INFO] Adding optimization_metadata column
+2025-02-21 16:07:21 [INFO] Memory optimizer initialized
+2025-02-21 16:48:11 [INFO] Use pytorch device_name: cpu
+2025-02-21 16:48:11 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 16:48:12 [DEBUG] Force refreshed tags: ['factual', 'technical', 'historical', 'scientific', 'opinion', 'personal', 'fantasy', 'literary', 'music', 'philosophy', 'miscellaneous', 'gaming']
+2025-02-21 16:48:12 [INFO] Loaded existing personality state
+2025-02-21 16:48:12 [INFO] Memory access tracker initialized
+2025-02-21 16:48:12 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-21 16:48:12 [INFO] Adding embedding column
+2025-02-21 16:48:12 [INFO] Adding optimization_metadata column
+2025-02-21 16:48:12 [INFO] Memory optimizer initialized
+2025-02-21 18:57:57 [INFO] Use pytorch device_name: cpu
+2025-02-21 18:57:57 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 18:58:57 [INFO] Use pytorch device_name: cpu
+2025-02-21 18:58:57 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 18:58:57 [INFO] Loaded existing personality state
+2025-02-21 19:14:12 [INFO] Use pytorch device_name: cpu
+2025-02-21 19:14:12 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 19:14:14 [INFO] Memory access tracker initialized
+2025-02-21 19:14:14 [INFO] Memory decay service started
+2025-02-21 19:14:14 [INFO] Memory Manager table schema: {
+  "id": "TEXT",
+  "content": "TEXT",
+  "layer": "TEXT",
+  "created_at": "TIMESTAMP",
+  "last_accessed": "TIMESTAMP",
+  "access_count": "INTEGER",
+  "importance": "FLOAT",
+  "topics": "TEXT",
+  "related_items": "TEXT",
+  "decay_factor": "FLOAT",
+  "source_type": "TEXT"
+}
+2025-02-21 19:14:14 [INFO] Adding embedding column
+2025-02-21 19:14:14 [INFO] Adding optimization_metadata column
+2025-02-21 19:14:14 [INFO] Memory optimizer initialized
+2025-02-21 19:19:45 [INFO] Use pytorch device_name: cpu
+2025-02-21 19:19:45 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 19:19:46 [INFO] Adding embedding column
+2025-02-21 19:19:46 [INFO] Adding optimization_metadata column
+2025-02-21 19:19:46 [INFO] Memory optimizer initialized
+2025-02-21 19:23:49 [INFO] Use pytorch device_name: cpu
+2025-02-21 19:23:49 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 19:23:50 [INFO] Adding embedding column
+2025-02-21 19:23:50 [INFO] Adding optimization_metadata column
+2025-02-21 19:23:50 [INFO] Memory optimizer initialized
+2025-02-21 19:32:55 [INFO] Use pytorch device_name: cpu
+2025-02-21 19:32:55 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 19:32:55 [INFO] Adding embedding column
+2025-02-21 19:32:55 [INFO] Adding optimization_metadata column
+2025-02-21 19:32:55 [INFO] Memory optimizer initialized
+2025-02-21 19:37:13 [INFO] Use pytorch device_name: cpu
+2025-02-21 19:37:13 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 19:37:14 [INFO] Adding embedding column
+2025-02-21 19:37:14 [INFO] Adding optimization_metadata column
+2025-02-21 19:37:14 [INFO] Memory optimizer initialized
+2025-02-21 19:39:04 [INFO] Use pytorch device_name: cpu
+2025-02-21 19:39:04 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 19:39:05 [INFO] Adding embedding column
+2025-02-21 19:39:05 [INFO] Adding optimization_metadata column
+2025-02-21 19:39:05 [INFO] Memory optimizer initialized
+2025-02-21 19:40:32 [INFO] Use pytorch device_name: cpu
+2025-02-21 19:40:32 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 19:40:32 [INFO] Adding embedding column
+2025-02-21 19:40:32 [INFO] Adding optimization_metadata column
+2025-02-21 19:40:32 [INFO] Memory optimizer initialized
+2025-02-21 19:42:51 [INFO] Use pytorch device_name: cpu
+2025-02-21 19:42:51 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 19:42:51 [INFO] Adding embedding column
+2025-02-21 19:42:51 [INFO] Adding optimization_metadata column
+2025-02-21 19:42:51 [INFO] Memory optimizer initialized
+2025-02-21 19:50:38 [INFO] Use pytorch device_name: cpu
+2025-02-21 19:50:38 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 19:50:38 [INFO] Adding embedding column
+2025-02-21 19:50:38 [INFO] Adding optimization_metadata column
+2025-02-21 19:50:38 [INFO] Memory optimizer initialized
+2025-02-21 19:54:10 [INFO] Use pytorch device_name: cpu
+2025-02-21 19:54:10 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 19:54:11 [INFO] Adding embedding column
+2025-02-21 19:54:11 [INFO] Adding optimization_metadata column
+2025-02-21 19:54:11 [INFO] Memory optimizer initialized
+2025-02-21 20:10:26 [INFO] Use pytorch device_name: cpu
+2025-02-21 20:10:26 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 20:10:27 [INFO] Adding embedding column
+2025-02-21 20:10:27 [INFO] Adding optimization_metadata column
+2025-02-21 20:10:27 [INFO] Memory optimizer initialized
+2025-02-21 20:13:09 [INFO] Use pytorch device_name: cpu
+2025-02-21 20:13:09 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 20:13:10 [INFO] Adding embedding column
+2025-02-21 20:13:10 [INFO] Adding optimization_metadata column
+2025-02-21 20:13:10 [INFO] Memory optimizer initialized
+2025-02-21 20:19:22 [INFO] Use pytorch device_name: cpu
+2025-02-21 20:19:22 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 20:19:23 [INFO] Adding embedding column
+2025-02-21 20:19:23 [INFO] Adding optimization_metadata column
+2025-02-21 20:19:23 [INFO] Memory optimizer initialized
+2025-02-21 20:19:51 [INFO] Use pytorch device_name: cpu
+2025-02-21 20:19:51 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 20:19:52 [INFO] Adding embedding column
+2025-02-21 20:19:52 [INFO] Adding optimization_metadata column
+2025-02-21 20:19:52 [INFO] Memory optimizer initialized
+2025-02-21 20:20:55 [INFO] Use pytorch device_name: cpu
+2025-02-21 20:20:55 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 20:20:55 [INFO] Adding embedding column
+2025-02-21 20:20:55 [INFO] Adding optimization_metadata column
+2025-02-21 20:20:55 [INFO] Memory optimizer initialized
+2025-02-21 20:24:54 [INFO] Use pytorch device_name: cpu
+2025-02-21 20:24:54 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 20:24:54 [INFO] Adding embedding column
+2025-02-21 20:24:54 [INFO] Adding optimization_metadata column
+2025-02-21 20:24:54 [INFO] Memory optimizer initialized
+2025-02-21 20:26:57 [INFO] Use pytorch device_name: cpu
+2025-02-21 20:26:57 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 20:26:57 [INFO] Adding embedding column
+2025-02-21 20:26:57 [INFO] Adding optimization_metadata column
+2025-02-21 20:26:57 [INFO] Memory optimizer initialized
+2025-02-21 20:28:17 [INFO] Use pytorch device_name: cpu
+2025-02-21 20:28:17 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 20:28:18 [INFO] Adding embedding column
+2025-02-21 20:28:18 [INFO] Adding optimization_metadata column
+2025-02-21 20:28:18 [INFO] Memory optimizer initialized
+2025-02-21 20:34:46 [INFO] Use pytorch device_name: cpu
+2025-02-21 20:34:46 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 20:34:51 [INFO] Adding embedding column
+2025-02-21 20:34:51 [INFO] Adding optimization_metadata column
+2025-02-21 20:34:51 [INFO] Memory optimizer initialized
+2025-02-21 20:38:50 [INFO] Use pytorch device_name: cpu
+2025-02-21 20:38:50 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-21 20:38:50 [INFO] Adding embedding column
+2025-02-21 20:38:50 [INFO] Adding optimization_metadata column
+2025-02-21 20:38:50 [INFO] Memory optimizer initialized
+2025-02-22 13:25:31 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:25:31 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:25:32 [INFO] Adding embedding column
+2025-02-22 13:25:32 [INFO] Adding optimization_metadata column
+2025-02-22 13:25:32 [INFO] Memory optimizer initialized
+2025-02-22 13:25:48 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:25:48 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:25:48 [INFO] Adding embedding column
+2025-02-22 13:25:48 [INFO] Adding optimization_metadata column
+2025-02-22 13:25:48 [INFO] Memory optimizer initialized
+2025-02-22 13:27:18 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:27:18 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:27:19 [INFO] Adding embedding column
+2025-02-22 13:27:19 [INFO] Adding optimization_metadata column
+2025-02-22 13:27:19 [INFO] Memory optimizer initialized
+2025-02-22 13:36:22 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:36:22 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:36:23 [INFO] Adding embedding column
+2025-02-22 13:36:23 [INFO] Adding optimization_metadata column
+2025-02-22 13:36:23 [INFO] Memory optimizer initialized
+2025-02-22 13:37:48 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:37:48 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:37:49 [INFO] Adding embedding column
+2025-02-22 13:37:49 [INFO] Adding optimization_metadata column
+2025-02-22 13:37:49 [INFO] Memory optimizer initialized
+2025-02-22 13:39:13 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:39:13 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:39:14 [INFO] Adding embedding column
+2025-02-22 13:39:14 [INFO] Adding optimization_metadata column
+2025-02-22 13:39:14 [INFO] Memory optimizer initialized
+2025-02-22 13:42:26 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:42:26 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:42:27 [INFO] Adding embedding column
+2025-02-22 13:42:27 [INFO] Adding optimization_metadata column
+2025-02-22 13:42:27 [INFO] Memory optimizer initialized
+2025-02-22 13:44:37 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:44:37 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:44:37 [INFO] Adding embedding column
+2025-02-22 13:44:37 [INFO] Adding optimization_metadata column
+2025-02-22 13:44:37 [INFO] Memory optimizer initialized
+2025-02-22 13:45:08 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:45:08 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:45:08 [INFO] Adding embedding column
+2025-02-22 13:45:08 [INFO] Adding optimization_metadata column
+2025-02-22 13:45:08 [INFO] Memory optimizer initialized
+2025-02-22 13:46:18 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:46:18 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:46:19 [INFO] Adding embedding column
+2025-02-22 13:46:19 [INFO] Adding optimization_metadata column
+2025-02-22 13:46:19 [INFO] Memory optimizer initialized
+2025-02-22 13:48:29 [INFO] Use pytorch device_name: cpu
+2025-02-22 13:48:29 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 13:48:29 [INFO] Adding embedding column
+2025-02-22 13:48:29 [INFO] Adding optimization_metadata column
+2025-02-22 13:48:29 [INFO] Memory optimizer initialized
+2025-02-22 14:09:48 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:09:48 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:09:50 [INFO] Adding embedding column
+2025-02-22 14:09:50 [INFO] Adding optimization_metadata column
+2025-02-22 14:09:50 [INFO] Memory optimizer initialized
+2025-02-22 14:13:22 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:13:22 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:13:22 [INFO] Adding embedding column
+2025-02-22 14:13:22 [INFO] Adding optimization_metadata column
+2025-02-22 14:13:22 [INFO] Memory optimizer initialized
+2025-02-22 14:14:16 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:14:16 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:14:16 [INFO] Adding embedding column
+2025-02-22 14:14:16 [INFO] Adding optimization_metadata column
+2025-02-22 14:14:16 [INFO] Memory optimizer initialized
+2025-02-22 14:16:27 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:16:27 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:16:28 [INFO] Adding embedding column
+2025-02-22 14:16:28 [INFO] Adding optimization_metadata column
+2025-02-22 14:16:28 [INFO] Memory optimizer initialized
+2025-02-22 14:19:32 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:19:32 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:19:33 [INFO] Adding embedding column
+2025-02-22 14:19:33 [INFO] Adding optimization_metadata column
+2025-02-22 14:19:33 [INFO] Memory optimizer initialized
+2025-02-22 14:20:42 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:20:42 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:20:43 [INFO] Adding embedding column
+2025-02-22 14:20:43 [INFO] Adding optimization_metadata column
+2025-02-22 14:20:43 [INFO] Memory optimizer initialized
+2025-02-22 14:27:18 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:27:18 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:27:19 [INFO] Adding embedding column
+2025-02-22 14:27:19 [INFO] Adding optimization_metadata column
+2025-02-22 14:27:19 [INFO] Memory optimizer initialized
+2025-02-22 14:29:42 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:29:42 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:29:42 [INFO] Adding embedding column
+2025-02-22 14:29:42 [INFO] Adding optimization_metadata column
+2025-02-22 14:29:42 [INFO] Memory optimizer initialized
+2025-02-22 14:30:08 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:30:08 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:30:09 [INFO] Adding embedding column
+2025-02-22 14:30:09 [INFO] Adding optimization_metadata column
+2025-02-22 14:30:09 [INFO] Memory optimizer initialized
+2025-02-22 14:30:35 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:30:35 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:30:35 [INFO] Adding embedding column
+2025-02-22 14:30:35 [INFO] Adding optimization_metadata column
+2025-02-22 14:30:35 [INFO] Memory optimizer initialized
+2025-02-22 14:32:27 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:32:27 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:32:27 [INFO] Adding embedding column
+2025-02-22 14:32:27 [INFO] Adding optimization_metadata column
+2025-02-22 14:32:27 [INFO] Memory optimizer initialized
+2025-02-22 14:34:58 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:34:58 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:34:59 [INFO] Adding embedding column
+2025-02-22 14:34:59 [INFO] Adding optimization_metadata column
+2025-02-22 14:34:59 [INFO] Memory optimizer initialized
+2025-02-22 14:36:15 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:36:15 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:36:16 [INFO] Adding embedding column
+2025-02-22 14:36:16 [INFO] Adding optimization_metadata column
+2025-02-22 14:36:16 [INFO] Memory optimizer initialized
+2025-02-22 14:38:23 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:38:23 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:38:23 [INFO] Adding embedding column
+2025-02-22 14:38:23 [INFO] Adding optimization_metadata column
+2025-02-22 14:38:23 [INFO] Memory optimizer initialized
+2025-02-22 14:39:54 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:39:54 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:39:58 [INFO] Adding embedding column
+2025-02-22 14:39:58 [INFO] Adding optimization_metadata column
+2025-02-22 14:39:58 [INFO] Memory optimizer initialized
+2025-02-22 14:41:34 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:41:34 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:41:39 [INFO] Adding embedding column
+2025-02-22 14:41:39 [INFO] Adding optimization_metadata column
+2025-02-22 14:41:39 [INFO] Memory optimizer initialized
+2025-02-22 14:43:02 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:43:02 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:43:03 [INFO] Adding embedding column
+2025-02-22 14:43:03 [INFO] Adding optimization_metadata column
+2025-02-22 14:43:03 [INFO] Memory optimizer initialized
+2025-02-22 14:43:55 [INFO] Use pytorch device_name: cpu
+2025-02-22 14:43:55 [INFO] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-02-22 14:43:56 [INFO] Adding embedding column
+2025-02-22 14:43:56 [INFO] Adding optimization_metadata column
+2025-02-22 14:43:56 [INFO] Memory optimizer initialized
