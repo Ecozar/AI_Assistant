@@ -1,0 +1,1 @@
+from AI_Project_Brain.auto_tagger import get_suggested_tags 
